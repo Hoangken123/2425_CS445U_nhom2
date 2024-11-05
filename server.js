@@ -4,7 +4,7 @@ const session = require('express-session');
 const cors = require('cors');
 const app = express();
 app.use(cors());
-const webRouter = require('./routers/api');
+const webRouter = require('./src/routers/api');
 const hostname = process.env.HOST_NAME;
 const port = process.env.PORT;
 const path = require('path');
