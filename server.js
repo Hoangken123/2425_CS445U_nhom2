@@ -5,6 +5,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 const webRouter = require('./src/routers/api');
+require('./db');
 const hostname = process.env.HOST_NAME;
 const port = process.env.PORT;
 const path = require('path');
@@ -40,5 +41,5 @@ app.use('/', webRouter);
 
 // Start the server
 app.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/login`);
+    console.log(`Server running at http://${hostname}:${port}`);
 });
