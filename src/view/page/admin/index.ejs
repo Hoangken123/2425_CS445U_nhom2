@@ -1,0 +1,123 @@
+<div class="row">
+    <div class="col-xl-4 col-lg-4 col-md-4 -col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                Thêm Mới Admin
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-lable mb-2">Tên Đăng Nhập</label>
+                    <input v-model="add.ten_dang_nhap" type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-lable mb-2">Tên Hiển Thị</label>
+                    <input v-model="add.ten_hien_thi" type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-lable mb-2">Email</label>
+                    <input v-model="add.email" type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-lable mb-2">Số Điện Thoại</label>
+                    <input v-model="add.so_dien_thoai" type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-lable mb-2">Mật Khẩu</label>
+                    <input v-model="add.password" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary float-end" @click="themMoi()">Thêm Mới</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-8 col-md-8 -col-sm-12">
+        <div class="card">
+            <div class="card-header">Danh Sách Tài Khoản</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center text-nowrap align-middle">#</th>
+                                <th class="text-center text-nowrap align-middle">Email</th>
+                                <th class="text-center text-nowrap align-middle">Tên Đăng Nhâp</th>
+                                <th class="text-center text-nowrap align-middle">Tên Hiển Thị</th>
+                                <th class="text-center text-nowrap align-middle">Số Điện Thoại</th>
+                                <th class="text-center text-nowrap align-middle">Cửa Hàng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-for="(value, key) in dataAdmin" :key="key">
+                                <tr>
+                                    <th class="text-center text-nowrap align-middle">{{ key + 1 }}</th>
+                                    <td class="text-nowrap align-middle">{{ value.email }}</td>
+                                    <td class="text-nowrap align-middle">{{ value.ten_dang_nhap }}</td>
+                                    <td class="text-nowrap align-middle">{{ value.ten_hien_thi }}</td>
+                                    <td class="text-center text-nowrap align-middle">{{ value.so_dien_thoai}}</td>
+                                    <td class="text-center text-nowrap align-middle">
+                                        <button class="btn btn-primary me-2" lass="btn btn-primary"
+                                            data-bs-toggle="modal" data-bs-target="#capNhatModal"
+                                            @click="Object.assign(edit, value)">Chỉnh Sửa</button>
+                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                        @click="Object.assign(del, value)">Xóa</button>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                    <!-- Cập nhật -->
+                    <div class="modal fade" id="capNhatModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh sửa danh sách tài khoản</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-lable mb-2">Tên Đăng Nhập</label>
+                                        <input v-model="edit.ten_dang_nhap" type="text" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-lable mb-2">Tên Hiển Thị</label>
+                                        <input v-model="edit.ten_hien_thi" type="text" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-lable mb-2">Số Điện Thoại</label>
+                                        <input v-model="edit.so_dien_thoai" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Đóng</button>
+                                    <button type="button" class="btn btn-primary" @click="capNhat()">Cập nhật</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Xóa -->
+                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              Bạn có chắc chắn muốn xóa hay không.<br><span><b class="text-danger">Lưu ý:</b> Dữu liệu sau khi xóa không thể khôi phục lại!!</span>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                              <button type="button" class="btn btn-primary" @click="Xoa()">Xác Nhận</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

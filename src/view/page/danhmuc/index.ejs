@@ -1,0 +1,100 @@
+<div class="container mt-4">
+    <h2 class="text-center">Quản Lý Danh Mục Thuốc</h2>
+
+    <!-- Thanh tìm kiếm -->
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <input id="search-input" type="text" class="form-control w-75" placeholder="Tìm kiếm danh mục thuốc...">
+        <button id="add-button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#addModal">Thêm Mới</button>
+    </div>
+
+    <!-- Bảng danh sách danh mục -->
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th class="text-center">#</th>
+                <th>Tên</th>
+                <th>Mô Tả</th>
+                <th class="text-center">Hành Động</th>
+            </tr>
+        </thead>
+        <tbody id="category-table">
+            <!-- Nội dung danh mục sẽ được điền từ JS -->
+        </tbody>
+    </table>
+
+    <!-- Phân trang -->
+    <div id="pagination" class="d-flex justify-content-center mt-3"></div>
+</div> 
+
+<!-- Modal Thêm Mới -->
+<!-- <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Thêm Mới Danh Mục</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-form">
+                    <div class="mb-3">
+                        <label for="add-name" class="form-label">Tên Danh Mục</label>
+                        <input type="text" id="add-name" class="form-control" placeholder="Nhập tên danh mục">
+                    </div>
+                    <div class="mb-3">
+                        <label for="add-description" class="form-label">Mô Tả</label>
+                        <textarea id="add-description" class="form-control" placeholder="Nhập mô tả danh mục"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100" id="add-save-button">Thêm Mới</button>
+                </form>
+            </div>
+        </div>
+    </div> 
+</div> -->
+
+<!-- Modal Chỉnh Sửa -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Chỉnh Sửa Danh Mục</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-form">
+                    <input type="hidden" id="edit-id">
+                    <div class="mb-3">
+                        <label for="edit-name" class="form-label">Tên Danh Mục</label>
+                        <input type="text" id="edit-name" class="form-control" placeholder="Nhập tên danh mục">
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-description" class="form-label">Mô Tả</label>
+                        <textarea id="edit-description" class="form-control" placeholder="Nhập mô tả danh mục"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100" id="edit-save-button">Cập Nhật</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Xóa -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xác Nhận Xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa danh mục này không? <br>
+                <strong class="text-danger">Lưu ý:</strong> Dữ liệu đã xóa sẽ không thể khôi phục lại!</p>
+                <!-- Hidden input to store the ID of the item to be deleted -->
+                <input type="hidden" id="delete-id">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete-button">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+

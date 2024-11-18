@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title><%= title %></title>
+        <%- include("css") -%>
+    </head>
+
+    <body>
+        <div class="wrapper" id="app">
+            <div class="header-wrapper">
+                <%- include("../share/header.ejs") -%> <%-
+                include("../share/menu.ejs") -%>
+            </div>
+            <div class="page-wrapper">
+                <div class="page-content"><%- body %></div>
+            </div>
+            <div class="overlay toggle-icon"></div>
+            <a href="javaScript:;" class="back-to-top"
+                ><i class="bx bxs-up-arrow-alt"></i
+            ></a>
+            <%- include("../share/footer.ejs") -%>
+        </div>
+        <%- include("../share/js.ejs") -%> <% if (customScript) { %>
+        <script type="module" src="<%= customScript %>"></script>
+        <% } %>
+    </body>
+</html>

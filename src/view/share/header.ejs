@@ -1,0 +1,104 @@
+<header>
+    <div class="topbar d-flex align-items-center" id="app">
+        <nav class="navbar navbar-expand">
+            <!-- Logo và Tên Nhà Thuốc -->
+            <div class="topbar-logo-header">
+                <div class="">
+                    <img src="/assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+                </div>
+                <div class="">
+                    <h4 class="logo-text">Quản Lý Nhà Thuốc</h4>
+                </div>
+            </div>
+
+            <!-- Tìm kiếm -->
+            <div class="search-bar flex-grow-1">
+                <div class="position-relative search-bar-box">
+                    <input type="text" class="form-control search-control" placeholder="Tìm kiếm...">
+                    <span class="position-absolute top-50 search-show translate-middle-y">
+                        <i class='bx bx-search'></i>
+                    </span>
+                    <span class="position-absolute top-50 search-close translate-middle-y">
+                        <i class='bx bx-x'></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Menu Chính -->
+            <div class="top-menu ms-auto">
+                <ul class="navbar-nav align-items-center">
+                    <!-- Thông báo -->
+                    <li class="nav-item dropdown dropdown-large">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="alert-count">3</span>
+                            <i class='bx bx-bell'></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a href="javascript:;">
+                                <div class="msg-header">
+                                    <p class="msg-header-title">Thông báo</p>
+                                    <p class="msg-header-clear ms-auto">Đánh dấu đã đọc</p>
+                                </div>
+                            </a>
+                            <div class="header-notifications-list">
+                                <a class="dropdown-item" href="javascript:;">
+                                    <div class="d-flex align-items-center">
+                                        <div class="notify bg-light-primary text-primary">
+                                            <i class="bx bx-cart"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="msg-name">Đơn hàng mới<span class="msg-time float-end">5 phút trước</span></h6>
+                                            <p class="msg-info">Có 3 đơn hàng mới cần xử lý.</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;">
+                                    <div class="d-flex align-items-center">
+                                        <div class="notify bg-light-warning text-warning">
+                                            <i class="bx bx-box"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="msg-name">Cập nhật kho<span class="msg-time float-end">10 phút trước</span></h6>
+                                            <p class="msg-info">Lô hàng mới đã nhập kho.</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;">
+                                    <div class="d-flex align-items-center">
+                                        <div class="notify bg-light-success text-success">
+                                            <i class="bx bx-user"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="msg-name">Khách hàng mới<span class="msg-time float-end">15 phút trước</span></h6>
+                                            <p class="msg-info">Đã thêm 5 khách hàng mới.</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <a href="javascript:;">
+                                <div class="text-center msg-footer">Xem tất cả thông báo</div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Thông tin tài khoản -->
+            <div class="user-box dropdown">
+                <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
+                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="/assets/images/avatars/avatar-2.png" class="user-img" alt="user avatar">
+                    <div class="user-info ps-3">
+                        <p class="user-name mb-0">Quản trị viên</p>
+                    </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Hồ sơ</span></a></li>
+                    <li><a class="dropdown-item" href="/admin/settings"><i class="bx bx-cog"></i><span>Cài đặt</span></a></li>
+                    <li><a class="dropdown-item" href="/logout"><i class='bx bx-log-out-circle'></i><span>Đăng xuất</span></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
