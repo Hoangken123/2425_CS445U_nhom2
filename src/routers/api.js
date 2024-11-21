@@ -10,7 +10,7 @@ const { index, data, createAdmin, updateAdmin, deleteAdmin } = require("../contr
 const { indexLogin, Login, Logout } = require('../controllers/LoginAdminController');
 const { indexDanhMuc, getDanhMuc, addDanhMuc, updateDanhMuc, deleteDanhMuc } = require('../controllers/DanhMucController');
 const { indexDonVi, getDonVi, addDonVi, deleteDonVi, updateDonVi } = require('../controllers/DonviController');
-const { indexsanPham, addsanPham, getsanPham } = require('../controllers/SanPhamController');
+const { indexsanPham, addsanPham, getsanPham, deletesanPham } = require('../controllers/SanPhamController');
 
 // Requests (Request Validations)
 const { CreateAdminRequest, UpdateAdminRequest, DeleteAdminRequest } = require("../Request/Admin");
@@ -28,18 +28,30 @@ const { validateCreateDonVi, validateUpdateDonVi } = require('../Request/DonViRe
 // HANDLE UPLOAD IMAGE
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const uploadPath = path.join(__dirname, 'public', 'uploads', 'products');
+        const uploadPath = path.resolve(__dirname, '..', 'public', 'uploads', 'products');
         if (!fs.existsSync(uploadPath)) {
             fs.mkdirSync(uploadPath, { recursive: true }); 
         }
         cb(null, uploadPath); 
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + "-" + file.originalname);
+        cb(null, Date.now() + "-" + file.originalname.replace(/\s/g, '_'));
     },
 });
-const upload = multer({ storage });
-const uploadMiddleware = upload.single('hinh_anh');
+const upload = multer({ 
+    storage, 
+    limits: { fileSize: 10 * 1024 * 1024 }, 
+    fileFilter: (req, file, cb) => {
+        const fileTypes = /jpeg|jpg|png|gif/;
+        const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
+        const mimeType = fileTypes.test(file.mimetype);
+        if (extName && mimeType) {
+            cb(null, true);
+        } else {
+            cb(new Error("Only images are allowed"));
+        }
+    }
+}).single('hinh_anh');
 
 
 const isAuthenticated = (req, res, next) => {
@@ -83,8 +95,8 @@ admin.put('/don-vi/update', isAuthenticated, validateUpdateDonVi, updateDonVi);
 
 admin.get('/san-pham', isAuthenticated, indexsanPham); 
 admin.get('/san-pham/get-data', isAuthenticated, getsanPham); 
-admin.post('/san-pham/create' ,uploadMiddleware,isAuthenticated, addsanPham); 
-// admin.delete('/san-pham/delete', isAuthenticated, deletesanPham); 
+admin.post('/san-pham/create' ,upload,isAuthenticated, addsanPham); 
+admin.delete('/san-pham/delete', isAuthenticated, deletesanPham); 
 // admin.put('/san-pham/update', isAuthenticated, validateUpdatesanPham, updatesanPham); 
 
 // Combine admin routes under /admin

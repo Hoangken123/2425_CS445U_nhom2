@@ -18,12 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
             (Product, index) =>
               `<tr class="text-center">
                       <td>${index + 1 + (page - 1) * limit}</td>
-                      <td>${Product.hinh_anh}</td>
+                      <td>
+                          <img src="${Product.hinh_anh}" alt="${Product.ten_san_pham}" style="width: 50px; height: 50px; object-fit: cover;" />
+                      </td>
                       <td>${Product.ten_san_pham}</td>
                       <td>${Product.han_su_dung}</td>
                       <td>${Product.so_luong}</td>
-                      <td>${Product.ten_don_vi}</td>
                       <td>${Product.gia_ban}</td>
+                      <td>${Product.ten_don_vi}</td>
                       <td>${Product.ten_danh_muc}</td>
                       <td>
                           <button class="btn btn-primary btn-sm" onclick="editProduct(${Product.id},'${Product.hinh_anh}','${Product.ten_san_pham}','${Product.so_luong}','${Product.ten_don_vi}','${Product.gia_ban}','${Product.ten_don_vi}','${Product.ten_danh_muc || ""}')">Cập Nhật</button>
@@ -95,14 +97,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     //----ADD PRODUCT----//
     addsavebutton.addEventListener("submit", async (e) => {
+      
       e.preventDefault();
       const formData = new FormData(e.target);
+      const ten_san_pham = formData.get('ten_san_pham');
+            const generatedSlug = generateSlug(ten_san_pham);
+            formData.set('slug_san_pham', generatedSlug);
       try {
           const response = await axios.post('/admin/san-pham/create', formData, {
               headers: { 'Content-Type': 'multipart/form-data' },
           });
   
           if (response.data.status) {
+               LoadProduct(currentPage);
               toastr.success(response.data.message);
           } else {
             toastr.error(response.data.message || 'Thêm sản phẩm thất bại!');
@@ -111,21 +118,21 @@ document.addEventListener("DOMContentLoaded", () => {
           toastr.error('Lỗi thêm sản phẩm:', error);
           toastr.error('Đã xảy ra lỗi trong quá trình thêm sản phẩm!');
       }
-  });
+    });
 
-    // //----DELETE UNIT----//
-    // window.deleteUnit = async (id) => {
-    //   if (confirm("Bạn có chắc chắn muốn xóa đơn vị khỏi hệ thống này?")) {
-    //     try {
-    //       const response = await axios.delete(`/admin/don-vi/delete?id=${id}`);
-    //       LoadUnit(currentPage);
-    //       toastr.success(response.data.message);
-    //     } catch (error) {
-    //       console.error("Error deleting Unit:", error);
-    //       toastr.error("Có lỗi xảy ra khi xóa đơn vị!");
-    //     }
-    //   }
-    // };
+    //----DELETE UNIT----//
+    window.deleteProduct = async (id) => {
+      if (confirm("Bạn có chắc chắn muốn xóa sản phẩm khỏi hệ thống này?")) {
+        try {
+          const response = await axios.delete(`/admin/san-pham/delete?id=${id}`);
+          LoadProduct(currentPage);
+          toastr.success(response.data.message);
+        } catch (error) {
+          console.error("Error deleting Unit:", error);
+          toastr.error("Có lỗi xảy ra khi xóa sản phẩm!");
+        }
+      }
+    };
     // //----SHOW UNIT----//
     // window.editUnit = async (id, ten_don_vi, slug_don_vi) => {
     //   document.getElementById("edit-id").value = id;
