@@ -1,9 +1,9 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
-            <h2 class="text-center">Quản Lý Danh Mục Thuốc</h2>
+            <h2 class="text-center">Quản Lý Danh Đon vị sản phẩm</h2>
             <div class="d-flex justify-content-between align-items-center my-4">
-                <input id="search-input" type="text" class="form-control w-75" placeholder="Tìm kiếm danh mục thuốc...">
+                <input id="search-input" type="text" class="form-control w-75" placeholder="Tìm kiếm đơn vị thuốc...">
                 <button id="add-button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#addModal">Thêm Mới</button>
             </div>
         </div>
@@ -13,12 +13,11 @@
                     <tr>
                         <th class="text-center">#</th>
                         <th class="text-center">Tên</th>
-                        <th class="text-center">Mô Tả</th>
                         <th class="text-center text-center">Hành Động</th>
                     </tr>
                 </thead>
-                <tbody id="category-table">
-                    <!-- Nội dung danh mục sẽ được điền từ JS -->
+                <tbody id="unit-table">
+                    <!-- Nội dung đơn vị sẽ được điền từ JS -->
                 </tbody>
             </table>
         </div>
@@ -34,18 +33,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Thêm Mới Danh Mục</h5>
+                <h5 class="modal-title" id="addModalLabel">Thêm đơn vị mới</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="add-form">
                     <div class="mb-3">
-                        <label for="add-name" class="form-label">Tên Danh Mục</label>
-                        <input type="text" id="add-name" class="form-control" placeholder="Nhập tên danh mục">
+                        <label for="add-name" class="form-label">Tên đơn Vị</label>
+                        <input type="text" id="name-unit" class="form-control" placeholder="Nhập tên đơn vị">
                     </div>
                     <div class="mb-3">
-                        <label for="add-description" class="form-label">Mô Tả</label>
-                        <textarea id="add-description" class="form-control" placeholder="Nhập mô tả danh mục"></textarea>
+                        <label for="add-description"  class="form-label">Slug đơn vị</label>
+                        <input type="text" id="slug-unit" disabled class="form-control" placeholder="Nhập tên đơn vị">
                     </div>
                     <button type="button" class="btn btn-primary w-100" id="add-save-button">Thêm Mới</button>
                 </form>
@@ -59,19 +58,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Chỉnh Sửa Danh Mục</h5>
+                <h5 class="modal-title" id="editModalLabel">Chỉnh sửa đơn vị</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="edit-form">
                     <input type="hidden" id="edit-id">
                     <div class="mb-3">
-                        <label for="edit-name" class="form-label">Tên Danh Mục</label>
-                        <input type="text" id="edit-name" class="form-control" placeholder="Nhập tên danh mục">
+                        <label for="edit-name-unit" class="form-label">Tên đơn vị</label>
+                        <input type="text" id="edit-name-unit" class="form-control" placeholder="Nhập tên đơn vị">
                     </div>
                     <div class="mb-3">
-                        <label for="edit-description" class="form-label">Mô Tả</label>
-                        <textarea id="edit-description" class="form-control" placeholder="Nhập mô tả danh mục"></textarea>
+                        <label for="edit-slug_unit" class="form-label">slug-unit</label>
+                        <textarea id="edit-slug_unit" disabled class="form-control" placeholder="Nhập mô tả đơn vị"></textarea>
                     </div>
                     <button type="button" class="btn btn-primary w-100" id="edit-save-button">Cập Nhật</button>
                 </form>
@@ -88,7 +87,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Bạn có chắc chắn muốn xóa danh mục này không? <br>
+                <p>Bạn có chắc chắn muốn xóa đơn vị này không? <br>
                 <strong class="text-danger">Lưu ý:</strong> Dữ liệu đã xóa sẽ không thể khôi phục lại!</p>
                 <!-- Hidden input to store the ID of the item to be deleted -->
                 <input type="hidden" id="delete-id">

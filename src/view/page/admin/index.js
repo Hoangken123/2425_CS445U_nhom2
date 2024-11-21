@@ -41,8 +41,8 @@ createApp({
                 const res = await axios.post('/admin/update', edit.value);
                 if (res.data.status) {
                     toastr.success(res.data.message, 'success');
-                    $("#capNhatModal").modal('hide'); // Hide the modal
-                    fetchData(); // Reload data after success
+                    $("#capNhatModal").modal('hide'); 
+                    fetchData(); 
                 }
             } catch (error) {
                 if (error.response?.data?.errors) {

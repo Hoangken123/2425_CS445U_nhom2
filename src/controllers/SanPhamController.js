@@ -1,0 +1,89 @@
+const SanPham = require("../model/SanPham");
+
+const indexsanPham = (req, res) => {
+  res.render("page/sanpham/index", {
+    layout: "../view/share/index",
+    title: "Quản lý sản phẩm ",
+    customScript: "/page/sanpham/index.js",
+  });
+};
+
+
+const getsanPham = async (req, res) => {
+  try {
+    const { page = 1, limit = 10, search = "", donViId, danhMucId } = req.query;
+    const offset = (page - 1) * limit;
+
+    const baseQuery = knex("san_pham")
+      .join("don_vis", "san_pham.id_don_vi", "=", "don_vis.id")
+      .join("danh_muc", "san_pham.id_danh_muc", "=", "danh_muc.id")
+      .select(
+        "san_pham.*",
+        "san_pham.ten_san_pham",
+        "don_vi.ten_don_vi",
+        "danh_muc.ten"
+      )
+      .where(function () {
+        if (search) {
+          this.where("don_vis.ten_don_vi", "like", `%${search}%`)
+            .orWhere("danh_muc.ten", "like", `%${search}%`)
+            .orWhere("san_pham.ten_san_pham", "like", `%${search}%`);
+        }
+      });
+
+    if (donViId) {
+      baseQuery.andWhere("san_pham.id_don_vi", donViId);
+    }
+    if (danhMucId) {
+      baseQuery.andWhere("san_pham.id_danh_muc", danhMucId);
+    }
+
+    const sanPhamData = await baseQuery.clone().limit(limit).offset(offset);
+
+    const totalCount = await baseQuery.clone().count({ count: "*" }).first();
+
+    console.log(sanPhamData);
+    
+    res.json({
+      status: true,
+      data: sanPhamData,
+      pagination: {
+        total: totalCount.count,
+        page: Number(page),
+        limit: Number(limit),
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res
+      .status(500)
+      .json({ status: false, message: "Lỗi lấy danh sách sản phẩm", error });
+  }
+};
+// ADD-PRODUCT
+const addsanPham = async (req, res) => {
+
+  try {
+    const imagepath = req.file.path;
+    const {ten_san_pham,slug_san_pham,han_su_dung,so_luong,gia_ban,id_don_vi,id_danh_muc,} = req.body;
+    // Lưu dữ liệu vào cơ sở dữ liệu
+    const newProduct = await SanPham.query().insert({ten_san_pham,slug_san_pham ,hinh_anh: imagepath,han_su_dung,so_luong,id_don_vi,gia_ban,id_danh_muc});
+    res.json({
+      status: true,
+      message: "Thêm đơn vị thuốc thành công!",
+      data: newProduct,
+    });
+  } catch (error) {
+    console.error("Lỗi khi thêm sản phẩm:", error);
+    return res.status(500).json({
+      status: false,
+      message: "Lỗi hệ thống khi thêm sản phẩm.",
+    });
+  }
+};
+
+module.exports = {
+  indexsanPham,
+  addsanPham,
+  getsanPham,
+};
