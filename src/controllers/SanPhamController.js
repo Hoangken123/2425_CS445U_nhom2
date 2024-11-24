@@ -1,5 +1,5 @@
 const SanPham = require("../model/SanPham");
-const knex = require('../config/database'); 
+const knex = require("../config/database");
 
 const indexsanPham = (req, res) => {
   res.render("page/sanpham/index", {
@@ -8,7 +8,6 @@ const indexsanPham = (req, res) => {
     customScript: "/page/sanpham/index.js",
   });
 };
-
 
 const getsanPham = async (req, res) => {
   try {
@@ -58,15 +57,31 @@ const getsanPham = async (req, res) => {
 
 // ADD-PRODUCT
 const addsanPham = async (req, res) => {
-
   try {
     const imagepath = `/uploads/products/${req.file.filename}`;
-    const {ten_san_pham,slug_san_pham,han_su_dung,so_luong,gia_ban,id_don_vi,id_danh_muc,} = req.body;
+    const {
+      ten_san_pham,
+      slug_san_pham,
+      han_su_dung,
+      so_luong,
+      gia_ban,
+      id_don_vi,
+      id_danh_muc,
+    } = req.body;
     // Lưu dữ liệu vào cơ sở dữ liệu:
-    const newProduct = await SanPham.query().insert({ten_san_pham,slug_san_pham:slug_san_pham ,hinh_anh: imagepath,han_su_dung,so_luong,id_don_vi,gia_ban,id_danh_muc});
+    const newProduct = await SanPham.query().insert({
+      ten_san_pham,
+      slug_san_pham: slug_san_pham,
+      hinh_anh: imagepath,
+      han_su_dung,
+      so_luong,
+      id_don_vi,
+      gia_ban,
+      id_danh_muc,
+    });
     res.json({
       status: true,
-      message: "Thêm đơn vị thuốc thành công!",
+      message: "Thêm Sản Phẩm thuốc thành công!",
       data: newProduct,
     });
   } catch (error) {
@@ -77,10 +92,10 @@ const addsanPham = async (req, res) => {
     });
   }
 };
-// DELETE-PRODUCT 
-const deletesanPham = async (req,res) =>{
+// DELETE-PRODUCT
+const deletesanPham = async (req, res) => {
   try {
-    const { id } = req.query; 
+    const { id } = req.query;
 
     if (!id) {
       return res
@@ -91,14 +106,58 @@ const deletesanPham = async (req,res) =>{
     await SanPham.query().deleteById(id);
     res.json({ status: true, message: "Xóa sản phẩm thành công" });
   } catch (error) {
-    console.error("Error deleting Unit:", error);
+    console.error("Error deleting Product:", error);
     res.status(500).json({ status: false, message: "Lỗi xóa sản phẩm", error });
   }
-}
+};
+const updatesanPham = async (req, res) => {
+  try {
+    const { id, ten_san_pham, slug_san_pham, han_su_dung, so_luong, id_don_vi, gia_ban, id_danh_muc } = req.body;
+
+    const existingProduct = await SanPham.query().findById(id);
+    if (!existingProduct) { 
+      return res.status(404).json({ status: false, message: "Không tìm thấy sản phẩm" });
+    }
+    // Kiểm tra xem có file mới không
+    const imagepath = req.file ? `/uploads/products/${req.file.filename}` : existingProduct.hinh_anh;
+
+    console.log(req.body);
+    if (!id) {
+      return res.status(400).json({ status: false, message: "ID không hợp lệ!" });
+      
+    }
+    //Update Sản phẩm
+    const updatedProduct = await SanPham.query()
+      .findById(id)
+      .patch({
+        ten_san_pham,
+        slug_san_pham: slug_san_pham ? slug_san_pham : undefined,
+        hinh_anh: imagepath ? imagepath :undefined,
+        han_su_dung,
+        so_luong,
+        id_don_vi,
+        gia_ban,
+        id_danh_muc,
+      });
+
+    if (!updatedProduct) {
+      return res
+        .status(404)
+        .json({ status: false, message: "Sản Phẩm không tìm thấy" });
+    }
+    res.json({ status: true, message: "Cập nhật Sản Phẩm thành công" });
+  } catch (error) {
+    console.error("Error updating Product:", error);
+    res
+      .status(500)
+      .json({ status: false, message: "Lỗi cập nhật Sản Phẩm", error });
+  }
+};
 
 module.exports = {
   indexsanPham,
   addsanPham,
   getsanPham,
-  deletesanPham
+  deletesanPham,
+  updatesanPham,
 };

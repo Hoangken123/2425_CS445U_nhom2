@@ -96,18 +96,18 @@
 
 <!-- Modal Chỉnh Sửa -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="max-width: 720px;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editModalLabel">Chỉnh sửa sản phẩm</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="edit-form">
-                    <input type="hidden" id="edit-id">
+                <form id="edit-form" enctype="multipart/form-data">
+                    <input type="hidden" id="edit-id" name="id">
                     <div class="mb-3">
                         <label for="add-image" class="form-label">Hình ảnh</label>
-                        <input type="file" multiple id="edit_hinh_anh" name="edit_hinh_anh" class="form-control" placeholder="Nhập tên sản phẩm">
+                        <input type="file"  id="hinh_anh" name="hinh_anh" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="add-name" class="form-label">Tên sản phẩm</label>
@@ -115,12 +115,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="add-slug"  class="form-label">Slug sản phẩm</label>
-                        <input type="text" name="edit_slug_san_pham" id="edit_slug-product" disabled class="form-control">
+                        <input type="text" name="edit_slug_san_pham" id="edit_slug_san_pham" disabled class="form-control">
                     </div>
 
                     <div class="mb-3">
                         <label for="add-expiry" class="form-label">Hạn dụng</label>
-                        <input type="datetime" name="edit_hang_su_dung" id="edit_hang_su_dung" class="form-control" >
+                        <input type="datetime" name="edit_han_su_dung" id="edit_han_su_dung" class="form-control" >
                     </div>
 
                     <div class="mb-3">
@@ -133,18 +133,22 @@
                         <input type="text" name="edit_gia_ban" id="edit_gia_ban" class="form-control" >
                     </div>
 
-                    <select class="form-control" name="edit_id_don_vi" id="edit_id_don_vi">
-                        <option value="0">Vui lòng chọn đơn vị</option>
-                        <option value="1">ML</option>
-                        <option value="2">KG</option>
-                     </select>
+                    <div class="mb-3">
+                        <select class="form-control" name="edit_id_don_vi" id="edit_id_don_vi">
+                            <option value="0">Vui lòng chọn đơn vị</option>
+                            <option value="1">ML</option>
+                            <option value="2">KG</option>
+                         </select>
+                    </div>
 
-                     <select class="form-control" name="edit_id_danh_muc" id="edit_id_danh_muc">
-                        <option value="0">Vui lòng chọn Danh Mục</option>
-                        <option value="1">Thuốc nước</option>
-                        <option value="2">Thuốc Viên</option>
-                     </select>
-                    <button type="button" class="btn btn-primary w-100" id="edit-save-button">Cập Nhật</button>
+                     <div class="mb-3">
+                        <select class="form-control" name="edit_id_danh_muc" id="edit_id_danh_muc">
+                            <option value="0">Vui lòng chọn Danh Mục</option>
+                            <option value="1">Thuốc nước</option>
+                            <option value="2">Thuốc Viên</option>
+                         </select>
+                     </div>
+                    <button type="submit" class="btn btn-primary w-100" id="edit-save-button">Cập Nhật</button>
                 </form>
             </div>
         </div>

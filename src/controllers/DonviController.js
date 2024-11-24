@@ -75,8 +75,6 @@ const deleteDonVi = async (req, res) => {
 const updateDonVi = async (req, res) => {
   try {
       const { id, ten_don_vi, slug_don_vi } = req.body;
-      console.log(req.body);
-
       const updatedUnit = await Donvi.query().findById(id).patch({ ten_don_vi, slug_don_vi });
 
       if (!updatedUnit) {
