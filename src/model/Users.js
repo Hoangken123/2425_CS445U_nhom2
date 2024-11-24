@@ -3,10 +3,10 @@ const { Model } = require('objection');
 
 Model.knex(knex);
 
-class Admin extends Model {
+class Users extends Model {
     static get tableName() {
-        return 'admins';
+        return 'users';
     }
 }
 
-module.exports = Admin;
+module.exports = Users;

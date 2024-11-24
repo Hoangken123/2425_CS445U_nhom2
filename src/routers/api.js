@@ -6,16 +6,19 @@ const fs = require('fs');
 const path = require("path");
 
 // Controllers
-const { index, data, createAdmin, updateAdmin, deleteAdmin } = require("../controllers/AdminController");
-const { indexLogin, Login, Logout } = require('../controllers/LoginAdminController');
+const { index, data, createAdmin, updateAdmin, deleteAdmin, changePassword } = require("../controllers/AdminController");
+const { indexLogin, Login, Logout, viewRegister, handleRegister } = require('../controllers/LoginAdminController');
 const { indexDanhMuc, getDanhMuc, addDanhMuc, updateDanhMuc, deleteDanhMuc } = require('../controllers/DanhMucController');
 const { indexDonVi, getDonVi, addDonVi, deleteDonVi, updateDonVi } = require('../controllers/DonviController');
-const { indexsanPham, addsanPham, getsanPham, deletesanPham } = require('../controllers/SanPhamController');
+const { indexsanPham, addsanPham, getsanPham, deletesanPham, updatesanPham } = require('../controllers/SanPhamController');
 
 // Requests (Request Validations)
-const { CreateAdminRequest, UpdateAdminRequest, DeleteAdminRequest } = require("../Request/Admin");
+// const { CreateAdminRequest, UpdateAdminRequest, DeleteAdminRequest } = require("../Request/Admin");
 const { validateCreateDanhMuc, validateUpdateDanhMuc, validateDeleteDanhMuc } = require('../Request/DanhMuc');
 const { validateCreateDonVi, validateUpdateDonVi } = require('../Request/DonViRequest/DonViRequest');
+const { register } = require('module');
+const { log } = require('console');
+const { DeleteAdminRequest, CreateAdminRequest, UpdateAdminRequest } = require('../Request/Admin');
 // Middlewares
 // const isAuthenticated = (req, res, next) => {
 //     const user = req.session?.user;
@@ -55,28 +58,35 @@ const upload = multer({
 
 
 const isAuthenticated = (req, res, next) => {
-    // Bỏ qua kiểm tra đăng nhập
-    console.log("Bỏ qua xác thực, tiếp tục chạy vào menu.");
+    const user = req.session?.user;
+    if (!user || user.level !== 1) {
+        return res.redirect('/login'); 
+    }
+    req.session.touch();
     next();
 };
 const preventLoggedInUserAccess = (req, res, next) => {
     if (req.session?.user) {
-        return res.redirect('/admin');
+        req.session.touch();
+        return res.redirect('/login');
     }
     next();
 };
 
 // Authentication Routes
+router.get('/view-register',viewRegister)
+router.post('/handle-register',handleRegister)
 router.get('/login', preventLoggedInUserAccess, indexLogin); // Hiển thị trang đăng nhập
 router.post('/login', Login); // Xử lý đăng nhập
 router.get('/logout', isAuthenticated, Logout); // Xử lý đăng xuất
 
 // Admin Management Routes
-admin.get('/', isAuthenticated, index); // Trang quản lý admin
-admin.get('/get-data', isAuthenticated, data); // Lấy danh sách admin
-admin.post('/create', isAuthenticated, CreateAdminRequest, createAdmin); // Tạo admin mới
-admin.post('/update', isAuthenticated, UpdateAdminRequest, updateAdmin); // Cập nhật admin
-admin.post('/delete', isAuthenticated, DeleteAdminRequest, deleteAdmin); // Xóa admin
+admin.get('/users', isAuthenticated, index); // Trang quản lý admin
+admin.get('/users/get-data', isAuthenticated, data); // Lấy danh sách admin
+admin.post('/users/create', isAuthenticated, CreateAdminRequest, createAdmin); // Tạo admin mới
+admin.post('/users/update', isAuthenticated, UpdateAdminRequest, updateAdmin); // Cập nhật admin
+admin.post('/users/delete', isAuthenticated, DeleteAdminRequest, deleteAdmin); // Xóa admin
+admin.post('/users/change-password', isAuthenticated, changePassword); // ChangePasswrod admin
 
 // Category Management Routes
 admin.get('/danh-muc', isAuthenticated, indexDanhMuc); // Trang quản lý danh mục
@@ -85,19 +95,20 @@ admin.post('/danh-muc/create', isAuthenticated, validateCreateDanhMuc, addDanhMu
 admin.post('/danh-muc/update', isAuthenticated, validateUpdateDanhMuc, updateDanhMuc); // Cập nhật danh mục
 admin.post('/danh-muc/delete', isAuthenticated, validateDeleteDanhMuc, deleteDanhMuc); // Xóa danh mục
 
-
+//Unit Management Routes
 admin.get('/don-vi', isAuthenticated, indexDonVi); 
 admin.get('/don-vi/get-data', isAuthenticated, getDonVi); 
 admin.post('/don-vi/create' ,isAuthenticated, validateCreateDonVi, addDonVi); 
 admin.delete('/don-vi/delete', isAuthenticated, deleteDonVi); 
 admin.put('/don-vi/update', isAuthenticated, validateUpdateDonVi, updateDonVi); 
 
-
+//Product Management Routes
 admin.get('/san-pham', isAuthenticated, indexsanPham); 
 admin.get('/san-pham/get-data', isAuthenticated, getsanPham); 
 admin.post('/san-pham/create' ,upload,isAuthenticated, addsanPham); 
 admin.delete('/san-pham/delete', isAuthenticated, deletesanPham); 
-// admin.put('/san-pham/update', isAuthenticated, validateUpdatesanPham, updatesanPham); 
+admin.post('/san-pham/update',upload,isAuthenticated, updatesanPham); 
+
 
 // Combine admin routes under /admin
 router.use('/admin', admin);

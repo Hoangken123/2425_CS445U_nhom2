@@ -29,10 +29,6 @@ const CreateAdminRequest = [
         .withMessage('Số điện thoại phải là số!')
         .matches(/^\d{10}$/)
         .withMessage('Số điện thoại phải là 10 số!'),
-    check("id_cua_hang")
-        .not()
-        .isEmpty()
-        .withMessage("Của hàng không được để trống!"),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

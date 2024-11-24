@@ -38,6 +38,7 @@ app.use(session({
     cookie: {
         secure: false, // Đặt thành true nếu dùng HTTPS
         httpOnly: true, // Bảo vệ chống lại tấn công XSS
+        maxAge: 1000 * 60 * 30 // 30 minutes (milliseconds)
     }
 }));
 
