@@ -9,6 +9,7 @@ const path = require("path");
 const { index, data, createAdmin, updateAdmin, deleteAdmin, changePassword } = require("../controllers/AdminController");
 const { indexLogin, Login, Logout, viewRegister, handleRegister } = require('../controllers/LoginAdminController');
 const { indexDanhMuc, getDanhMuc, addDanhMuc, updateDanhMuc, deleteDanhMuc } = require('../controllers/DanhMucController');
+const { indexKhachHang, getKhachHang, addKhachHang, updateKhachHang, deleteKhachHang } = require('../controllers/KhachHangController');
 const { indexDonVi, getDonVi, addDonVi, deleteDonVi, updateDonVi } = require('../controllers/DonviController');
 const { indexsanPham, addsanPham, getsanPham, deletesanPham, updatesanPham } = require('../controllers/SanPhamController');
 
@@ -19,6 +20,10 @@ const { validateCreateDonVi, validateUpdateDonVi } = require('../Request/DonViRe
 const { register } = require('module');
 const { log } = require('console');
 const { DeleteAdminRequest, CreateAdminRequest, UpdateAdminRequest } = require('../Request/Admin');
+<<<<<<< HEAD
+=======
+const { validateCreateKhachHang, validateUpdatekhachHang, validateDeleteKhachHang } = require('../Request/KhachHang');
+>>>>>>> 3e9c81060406b7c7407dcbc891920ba497bae755
 // Middlewares
 // const isAuthenticated = (req, res, next) => {
 //     const user = req.session?.user;
@@ -59,6 +64,11 @@ const upload = multer({
 
 const isAuthenticated = (req, res, next) => {
     const user = req.session?.user;
+<<<<<<< HEAD
+=======
+    console.log("user session:", user);
+    
+>>>>>>> 3e9c81060406b7c7407dcbc891920ba497bae755
     if (!user || user.level !== 1) {
         return res.redirect('/login'); 
     }
@@ -72,6 +82,26 @@ const preventLoggedInUserAccess = (req, res, next) => {
     }
     next();
 };
+
+const jwt = require('jsonwebtoken');
+
+// const authenticate = (req, res, next) => {
+//     const token = req.headers['authorization'];
+
+//     if (!token) {
+//         return res.status(401).json({ status: false, message: 'Token không hợp lệ' });
+//     }
+
+//     jwt.verify(token, 'secret_key', (err, user) => {
+//         if (err) {
+//             return res.status(403).json({ status: false, message: 'Token không hợp lệ' });
+//         }
+//         req.user = user;  // Lưu thông tin người dùng vào req.user
+//         next();
+//     });
+// };
+
+// module.exports = authenticate;
 
 // Authentication Routes
 router.get('/view-register',viewRegister)
@@ -95,6 +125,17 @@ admin.post('/danh-muc/create', isAuthenticated, validateCreateDanhMuc, addDanhMu
 admin.post('/danh-muc/update', isAuthenticated, validateUpdateDanhMuc, updateDanhMuc); // Cập nhật danh mục
 admin.post('/danh-muc/delete', isAuthenticated, validateDeleteDanhMuc, deleteDanhMuc); // Xóa danh mục
 
+<<<<<<< HEAD
+=======
+// Khach Hang Management Routes
+admin.get('/khach-hang', isAuthenticated, indexKhachHang); // Trang quản lý khách hàng
+admin.get('/khach-hang/get-data', isAuthenticated, getKhachHang); // Lấy danh sách khách hàng (phân trang & tìm kiếm)
+admin.post('/khach-hang/create', isAuthenticated, validateCreateKhachHang, addKhachHang); // Thêm khách hàng
+admin.put('/khach-hang/update/:id', isAuthenticated, validateUpdatekhachHang, updateKhachHang); // Cập nhật khách hàng
+admin.delete('/khach-hang/delete/:id', isAuthenticated, validateDeleteKhachHang, deleteKhachHang); // Xóa khách hàng
+
+
+>>>>>>> 3e9c81060406b7c7407dcbc891920ba497bae755
 //Unit Management Routes
 admin.get('/don-vi', isAuthenticated, indexDonVi); 
 admin.get('/don-vi/get-data', isAuthenticated, getDonVi); 
