@@ -20,10 +20,7 @@ const { validateCreateDonVi, validateUpdateDonVi } = require('../Request/DonViRe
 const { register } = require('module');
 const { log } = require('console');
 const { DeleteAdminRequest, CreateAdminRequest, UpdateAdminRequest } = require('../Request/Admin');
-<<<<<<< HEAD
-=======
 const { validateCreateKhachHang, validateUpdatekhachHang, validateDeleteKhachHang } = require('../Request/KhachHang');
->>>>>>> 3e9c81060406b7c7407dcbc891920ba497bae755
 // Middlewares
 // const isAuthenticated = (req, res, next) => {
 //     const user = req.session?.user;
