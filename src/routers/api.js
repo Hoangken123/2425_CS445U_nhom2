@@ -61,11 +61,8 @@ const upload = multer({
 
 const isAuthenticated = (req, res, next) => {
     const user = req.session?.user;
-<<<<<<< HEAD
-=======
     console.log("user session:", user);
     
->>>>>>> 3e9c81060406b7c7407dcbc891920ba497bae755
     if (!user || user.level !== 1) {
         return res.redirect('/login'); 
     }
@@ -122,8 +119,6 @@ admin.post('/danh-muc/create', isAuthenticated, validateCreateDanhMuc, addDanhMu
 admin.post('/danh-muc/update', isAuthenticated, validateUpdateDanhMuc, updateDanhMuc); // Cập nhật danh mục
 admin.post('/danh-muc/delete', isAuthenticated, validateDeleteDanhMuc, deleteDanhMuc); // Xóa danh mục
 
-<<<<<<< HEAD
-=======
 // Khach Hang Management Routes
 admin.get('/khach-hang', isAuthenticated, indexKhachHang); // Trang quản lý khách hàng
 admin.get('/khach-hang/get-data', isAuthenticated, getKhachHang); // Lấy danh sách khách hàng (phân trang & tìm kiếm)
@@ -132,7 +127,6 @@ admin.put('/khach-hang/update/:id', isAuthenticated, validateUpdatekhachHang, up
 admin.delete('/khach-hang/delete/:id', isAuthenticated, validateDeleteKhachHang, deleteKhachHang); // Xóa khách hàng
 
 
->>>>>>> 3e9c81060406b7c7407dcbc891920ba497bae755
 //Unit Management Routes
 admin.get('/don-vi', isAuthenticated, indexDonVi); 
 admin.get('/don-vi/get-data', isAuthenticated, getDonVi); 
