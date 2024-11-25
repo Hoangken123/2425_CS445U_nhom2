@@ -92,7 +92,8 @@ const handleRegister = async (req, res) => {
             password : hashedPassword,
             id_cua_hang : null,
             id_quyen:null,
-            level:1
+            level:1,
+            day_off:null
         });
 
         return res.json({

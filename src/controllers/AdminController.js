@@ -13,7 +13,7 @@ const index = (req, res) => {
 // Tạo tài khoản admin
 const createAdmin = async (req, res) => {
     try {
-        const { ten_dang_nhap, ten_hien_thi, so_dien_thoai, email, password } = req.body;
+        const { ten_dang_nhap, ten_hien_thi, so_dien_thoai, email, password,level } = req.body;
 
         if (!ten_dang_nhap || !ten_hien_thi || !so_dien_thoai || !email || !password) {
             return res.status(400).json({
@@ -30,7 +30,7 @@ const createAdmin = async (req, res) => {
             password : hashedPassword,
             id_cua_hang : null,
             id_quyen:null,
-            level:0
+            level:level,
         });
 
         return res.json({

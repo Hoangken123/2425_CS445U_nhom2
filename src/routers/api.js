@@ -16,9 +16,9 @@ const { indexsanPham, addsanPham, getsanPham, deletesanPham, updatesanPham } = r
 // const { CreateAdminRequest, UpdateAdminRequest, DeleteAdminRequest } = require("../Request/Admin");
 const { validateCreateDanhMuc, validateUpdateDanhMuc, validateDeleteDanhMuc } = require('../Request/DanhMuc');
 const { validateCreateDonVi, validateUpdateDonVi } = require('../Request/DonViRequest/DonViRequest');
-const { register } = require('module');
-const { log } = require('console');
 const { DeleteAdminRequest, CreateAdminRequest, UpdateAdminRequest } = require('../Request/Admin');
+const { indexCuaHang, addCuaHang, getCuaHang, deleteCuaHang, updateCuaHang } = require('../controllers/CuaHangController');
+const { indexNhanVien, getNhanVien, deleteNhanVien, updateNhanVien } = require('../controllers/NhanVienController');
 // Middlewares
 // const isAuthenticated = (req, res, next) => {
 //     const user = req.session?.user;
@@ -106,8 +106,22 @@ admin.put('/don-vi/update', isAuthenticated, validateUpdateDonVi, updateDonVi);
 admin.get('/san-pham', isAuthenticated, indexsanPham); 
 admin.get('/san-pham/get-data', isAuthenticated, getsanPham); 
 admin.post('/san-pham/create' ,upload,isAuthenticated, addsanPham); 
+
 admin.delete('/san-pham/delete', isAuthenticated, deletesanPham); 
-admin.post('/san-pham/update',upload,isAuthenticated, updatesanPham); 
+admin.post('/san-pham/update',upload,isAuthenticated, updatesanPham);
+
+// Shop Management Routes
+admin.get('/cua-hang', isAuthenticated, indexCuaHang); 
+admin.get('/cua-hang/get-data', isAuthenticated, getCuaHang); 
+admin.post('/cua-hang/create' ,isAuthenticated, addCuaHang); 
+admin.delete('/cua-hang/delete', isAuthenticated, deleteCuaHang); 
+admin.put('/cua-hang/update', isAuthenticated, updateCuaHang); 
+
+// Employee Management Routes
+admin.get('/nhan-vien', isAuthenticated, indexNhanVien); 
+admin.get('/nhan-vien/get-data', isAuthenticated, getNhanVien); 
+admin.delete('/nhan-vien/delete', isAuthenticated, deleteNhanVien); 
+admin.put('/nhan-vien/update', isAuthenticated, updateNhanVien); 
 
 
 // Combine admin routes under /admin

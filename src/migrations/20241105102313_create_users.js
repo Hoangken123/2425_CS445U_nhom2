@@ -9,10 +9,11 @@ exports.up = function (knex) {
       table.integer('id_cua_hang').nullable();
       table.integer('id_quyen').nullable();
       table.integer('level').nullable();
+      table.integer('day_off').defaultTo(0);
       table.timestamps(true, true);
   });
 };
 
 exports.down = function (knex) {
-  return knex.schema.dropTable('user');
+  return knex.schema.dropTable('users');
 };

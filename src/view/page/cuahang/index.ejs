@@ -1,0 +1,111 @@
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">Quản Lý Chi Nhánh cửa hàng</h2>
+            <div class="d-flex justify-content-between align-items-center my-4">
+                <input id="search-input" type="text" class="form-control w-75" placeholder="Tìm kiếm cửa hàng thuốc...">
+                <button id="add-button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#addModal">Thêm Mới</button>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Tên cửa hàng</th>
+                        <th class="text-center">Địa chỉ</th>
+                        <th class="text-center text-center">Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody id="cua-hang-table">
+                    <!-- Nội dung cửa hàng sẽ được điền từ JS -->
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text0-end">
+            <div id="pagination" class="d-flex justify-content-center mt-3"></div>
+        </div>
+    </div>
+    
+</div> 
+
+<!-- Modal Thêm Mới -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Thêm cửa hàng mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-form">
+                    <div class="mb-3">
+                        <label for="add-name" class="form-label">Tên cửa hàng</label>
+                        <input type="text" id="name-cuahang" class="form-control" placeholder="Nhập tên cửa hàng">
+                    </div>
+                    <div class="mb-3">
+                        <label for="add-description"  class="form-label">Slug cửa hàng</label>
+                        <input type="text" id="slug-cuahang" disabled class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="add-description"  class="form-label">Địa chỉ</label>
+                        <input type="text" id="address-cuahang"  class="form-control" placeholder="Nhập địa chỉ cửa hàng">
+                    </div>
+                    <button type="button" class="btn btn-primary w-100" id="add-save-button">Thêm Mới</button>
+                </form>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<!-- Modal Chỉnh Sửa -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Chỉnh sửa cửa hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-form">
+                    <input type="hidden" id="edit-id">
+                    <div class="mb-3">
+                        <label for="edit-name_cuahang" class="form-label">Tên cửa hàng</label>
+                        <input type="text" id="edit-name_cuahang" class="form-control" placeholder="Nhập tên cửa hàng">
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-slug_cuahang" class="form-label">slug-cuahang</label>
+                        <textarea id="edit-slug_cuahang" disabled class="form-control" placeholder="Nhập mô tả cửa hàng"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-slug_cuahang" class="form-label">Địa chi</label>
+                        <textarea id="edit-address"  class="form-control" placeholder="Nhập mô tả cửa hàng"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100" id="edit-save-button">Cập Nhật</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Xóa -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xác Nhận Xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa cửa hàng này không? <br>
+                <strong class="text-danger">Lưu ý:</strong> Dữ liệu đã xóa sẽ không thể khôi phục lại!</p>
+                <!-- Hidden input to store the ID of the item to be deleted -->
+                <input type="hidden" id="delete-id">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete-button">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+

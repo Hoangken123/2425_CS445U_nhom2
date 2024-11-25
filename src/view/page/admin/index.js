@@ -8,12 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const response = await axios.get('/admin/users/get-data');
             const { data } = response.data;
-
+            
             if (!data || data.length === 0) {
                 UsersTable.innerHTML = "<tr><td colspan='7' class='text-center'>No users found</td></tr>";
                 return;
             }
-
             UsersTable.innerHTML = data.map((users, index) => `
                 <tr class="text-center">
                     <td>${index + 1}</td>
@@ -21,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${users.ten_hien_thi}</td>
                     <td>${users.email}</td>
                     <td>${users.so_dien_thoai}</td>
-                    <td>${users.level === 1 ? 'Admin' : 'Chưa Xác Định'}</td>
+                    <td>${users.level === 1 ? 'Admin' : 'Nhân viên'}</td>
                     <td> <button class="btn btn-success btn-sm" onclick="changePassword(${users.id},'${users.email}')">Đổi mật khẩu</button></td>
                     <td>
                         <button class="btn btn-primary btn-sm" onclick="editusers(${users.id}, '${users.ten_dang_nhap}', '${users.ten_hien_thi}', '${users.so_dien_thoai}', '${users.email}', '${users.level}', '${users.id_cua_hang}', '${users.id_quyen}')">Cập Nhật</button>
@@ -75,13 +74,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const so_dien_thoai = document.getElementById("so_dien_thoai").value.trim();
         const email         = document.getElementById("email").value.trim();
         const password      = document.getElementById("password").value.trim();
+        const level         = document.getElementById("level").value.trim();
 
         if (ten_dang_nhap === "" || ten_hien_thi === "" || so_dien_thoai === "" || email === "" || password === "") {
             toastr.error("Vui lòng nhập đầy đủ thông tin!");
         }
         
       try {
-          const response = await axios.post('/admin/users/create', {ten_dang_nhap,ten_hien_thi,so_dien_thoai,email,password});
+          const response = await axios.post('/admin/users/create', {ten_dang_nhap,ten_hien_thi,so_dien_thoai,email,password,level});
           if (response.data.status) {
             loadUser(); 
               toastr.success(response.data.message);
