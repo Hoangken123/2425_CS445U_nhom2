@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require("path");
 
 // Controllers
-const { index, data, createAdmin, updateAdmin, deleteAdmin, changePassword } = require("../controllers/AdminController");
+const { index, data, createAdmin, updateAdmin, deleteAdmin, changePassword, viewlostpassword, handleLostPassword, viewResetPassword, handleResetPassword } = require("../controllers/AdminController");
 const { indexLogin, Login, Logout, viewRegister, handleRegister } = require('../controllers/LoginAdminController');
 const { indexDanhMuc, getDanhMuc, addDanhMuc, updateDanhMuc, deleteDanhMuc } = require('../controllers/DanhMucController');
 const { indexDonVi, getDonVi, addDonVi, deleteDonVi, updateDonVi } = require('../controllers/DonviController');
@@ -79,7 +79,11 @@ router.post('/handle-register',handleRegister)
 router.get('/login', preventLoggedInUserAccess, indexLogin); // Hiển thị trang đăng nhập
 router.post('/login', Login); // Xử lý đăng nhập
 router.get('/logout', isAuthenticated, Logout); // Xử lý đăng xuất
-
+router.get('/lost-password',viewlostpassword)
+//  const linkSendEmail = `${link}/reset-password/${user.id}`;
+router.post('/lost-password',handleLostPassword)
+router.get('/reset-password/:token',viewResetPassword)
+router.post('/reset-password',handleResetPassword)
 // Admin Management Routes
 admin.get('/users', isAuthenticated, index); // Trang quản lý admin
 admin.get('/users/get-data', isAuthenticated, data); // Lấy danh sách admin
@@ -106,7 +110,6 @@ admin.put('/don-vi/update', isAuthenticated, validateUpdateDonVi, updateDonVi);
 admin.get('/san-pham', isAuthenticated, indexsanPham); 
 admin.get('/san-pham/get-data', isAuthenticated, getsanPham); 
 admin.post('/san-pham/create' ,upload,isAuthenticated, addsanPham); 
-
 admin.delete('/san-pham/delete', isAuthenticated, deletesanPham); 
 admin.post('/san-pham/update',upload,isAuthenticated, updatesanPham);
 
