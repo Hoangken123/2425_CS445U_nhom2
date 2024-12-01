@@ -15,8 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const response = await axios.post('/login', { email, password });
             
-            if (response.data.redirectUrl) {
+            if (response.data.status) {
+                localStorage.setItem('userId', response.data.userId); 
+                
                 window.location.href = response.data.redirectUrl;
+            } else {
+                toastr.error(response.data.message || 'Đăng nhập thất bại!');
             }
         } catch (error) {
             toastr.error(error.response?.data?.message || 'Đăng nhập thất bại!');

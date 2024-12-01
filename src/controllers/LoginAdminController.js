@@ -41,7 +41,8 @@ const Login = async (req, res) => {
         return res.json({
             status: true,
             message: 'Login successful',
-            redirectUrl: '/admin/danh-muc'
+            redirectUrl: '/admin/danh-muc',
+            userId: user.id  
         });
     } catch (error) {
         console.error('Login error:', error);

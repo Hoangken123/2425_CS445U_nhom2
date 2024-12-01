@@ -4,9 +4,9 @@ const admin = express.Router();
 const multer = require("multer");
 const fs = require('fs');
 const path = require("path");
-
+const jwt = require('jsonwebtoken');
 // Controllers
-const { index, data, createAdmin, updateAdmin, deleteAdmin, changePassword, viewlostpassword, handleLostPassword, viewResetPassword, handleResetPassword } = require("../controllers/AdminController");
+const { index, data, createAdmin, updateAdmin, deleteAdmin, changePassword, viewlostpassword, handleLostPassword, viewResetPassword, handleResetPassword, indexProfile, updateProfile } = require("../controllers/AdminController");
 const { indexLogin, Login, Logout, viewRegister, handleRegister } = require('../controllers/LoginAdminController');
 const { indexDanhMuc, getDanhMuc, addDanhMuc, updateDanhMuc, deleteDanhMuc } = require('../controllers/DanhMucController');
 const { indexDonVi, getDonVi, addDonVi, deleteDonVi, updateDonVi } = require('../controllers/DonviController');
@@ -80,10 +80,10 @@ router.get('/login', preventLoggedInUserAccess, indexLogin); // Hiển thị tra
 router.post('/login', Login); // Xử lý đăng nhập
 router.get('/logout', isAuthenticated, Logout); // Xử lý đăng xuất
 router.get('/lost-password',viewlostpassword)
-//  const linkSendEmail = `${link}/reset-password/${user.id}`;
 router.post('/lost-password',handleLostPassword)
 router.get('/reset-password/:token',viewResetPassword)
 router.post('/reset-password',handleResetPassword)
+
 // Admin Management Routes
 admin.get('/users', isAuthenticated, index); // Trang quản lý admin
 admin.get('/users/get-data', isAuthenticated, data); // Lấy danh sách admin
@@ -92,6 +92,9 @@ admin.post('/users/update', isAuthenticated, UpdateAdminRequest, updateAdmin); /
 admin.post('/users/delete', isAuthenticated, DeleteAdminRequest, deleteAdmin); // Xóa admin
 admin.post('/users/change-password', isAuthenticated, changePassword); // ChangePasswrod admin
 
+//Profile
+admin.get('/users/profile/:id', isAuthenticated, indexProfile);
+admin.post('/users/profile/update', isAuthenticated, updateProfile);
 // Category Management Routes
 admin.get('/danh-muc', isAuthenticated, indexDanhMuc); // Trang quản lý danh mục
 admin.get('/danh-muc/get-data', isAuthenticated, getDanhMuc); // Lấy danh sách danh mục (phân trang & tìm kiếm)
@@ -125,6 +128,7 @@ admin.get('/nhan-vien', isAuthenticated, indexNhanVien);
 admin.get('/nhan-vien/get-data', isAuthenticated, getNhanVien); 
 admin.delete('/nhan-vien/delete', isAuthenticated, deleteNhanVien); 
 admin.put('/nhan-vien/update', isAuthenticated, updateNhanVien); 
+
 
 
 // Combine admin routes under /admin

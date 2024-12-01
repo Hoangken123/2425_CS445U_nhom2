@@ -235,7 +235,7 @@ const handleLostPassword = async (req, res) => {
 const viewResetPassword = async (req, res) => {
   try {
     const { token } = req.params;
-    
+
     // Find the token in the database
     const record = await PasswordResetTokens.query()
       .where("token", token)
@@ -253,40 +253,79 @@ const viewResetPassword = async (req, res) => {
       title: "resetpassword",
       customScript: "/page/resetpassword/index.js",
       userId: record.user_id,
-
     });
   } catch (error) {
     console.error("Error rendering reset password page:", error.message);
     res.status(500).send("Internal Server Error");
   }
 };
-const handleResetPassword = async (req,res) =>{
-    try {
-        const { token, newPassword } = req.body;
+const handleResetPassword = async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
 
-        //code  kiểm tra token còn tồn tại không!
-        const record = await PasswordResetTokens.query().where("token", token).andWhere("expires_at", ">", new Date()).first();
-        if (!record) {
-            return res.status(400).json({ error: "Token đã hết hạn không thể reset!" });
-        }
-        //code  kiểm tra token còn tồn tại không!
-
-        
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-        // update
-        await Users.query().where("id", record.user_id).update({password: hashedPassword,});
-
-        //update thành công thì xoá token đó đi ! :))
-        await PasswordResetTokens.query().where("id", record.id).delete();
-
-        return res.json({ message: "Mật khẩu đã được đặt lại thành công!" });
-    } catch (error) {
-        console.error("Lỗi khi đặt lại mật khẩu:", error.message);
-        res.status(500).json({ error: "Lỗi máy chủ nội bộ!" });
+    //code  kiểm tra token còn tồn tại không!
+    const record = await PasswordResetTokens.query()
+      .where("token", token)
+      .andWhere("expires_at", ">", new Date())
+      .first();
+    if (!record) {
+      return res
+        .status(400)
+        .json({ error: "Token đã hết hạn không thể reset!" });
     }
-    
-}
+    //code  kiểm tra token còn tồn tại không!
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // update
+    await Users.query()
+      .where("id", record.user_id)
+      .update({ password: hashedPassword });
+
+    //update thành công thì xoá token đó đi ! :))
+    await PasswordResetTokens.query().where("id", record.id).delete();
+
+    return res.json({ message: "Mật khẩu đã được đặt lại thành công!" });
+  } catch (error) {
+    console.error("Lỗi khi đặt lại mật khẩu:", error.message);
+    res.status(500).json({ error: "Lỗi máy chủ nội bộ!" });
+  }
+};
+// Profile
+const indexProfile = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await Users.query().findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "Người dùng không tồn tại" });
+    }
+
+    res.render("page/profile/index", {
+      layout: "../view/share/index",
+      title: "Profile",
+      customScript: "/page/profile/index.js",
+      user: user,
+      userId,
+    });
+  } catch (error) {
+    console.error("Lỗi khi tải thông tin hồ sơ:", error);
+    res.status(500).json({ error: "Lỗi Server" });
+  }
+};
+const updateProfile = async (req, res) => {
+  try {
+    const { id, ten_hien_thi, so_dien_thoai } = req.body;
+
+    await Users.query().findById(id).patch({ten_hien_thi,so_dien_thoai});
+
+    res.json({ status: true, message: "Cập nhật thành công" });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ status: false, message: "Error updating profile" });
+  }
+};
+
 module.exports = {
   index,
   data,
@@ -297,5 +336,7 @@ module.exports = {
   viewlostpassword,
   handleLostPassword,
   viewResetPassword,
-  handleResetPassword
+  handleResetPassword,
+  indexProfile,
+  updateProfile,
 };
