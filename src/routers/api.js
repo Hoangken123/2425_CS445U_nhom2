@@ -19,6 +19,7 @@ const { validateCreateDonVi, validateUpdateDonVi } = require('../Request/DonViRe
 const { DeleteAdminRequest, CreateAdminRequest, UpdateAdminRequest } = require('../Request/Admin');
 const { indexCuaHang, addCuaHang, getCuaHang, deleteCuaHang, updateCuaHang } = require('../controllers/CuaHangController');
 const { indexNhanVien, getNhanVien, deleteNhanVien, updateNhanVien } = require('../controllers/NhanVienController');
+const { indexSellPage, addToinvoice } = require('../controllers/SellProductController');
 // Middlewares
 // const isAuthenticated = (req, res, next) => {
 //     const user = req.session?.user;
@@ -129,6 +130,9 @@ admin.get('/nhan-vien/get-data', isAuthenticated, getNhanVien);
 admin.delete('/nhan-vien/delete', isAuthenticated, deleteNhanVien); 
 admin.put('/nhan-vien/update', isAuthenticated, updateNhanVien); 
 
+// Sell 
+admin.get('/sell-product',isAuthenticated,indexSellPage)
+admin.post('/add-to-invoice',isAuthenticated,addToinvoice)
 
 
 // Combine admin routes under /admin
