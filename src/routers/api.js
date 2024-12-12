@@ -12,7 +12,7 @@ const { indexDanhMuc, getDanhMuc, addDanhMuc, updateDanhMuc, deleteDanhMuc } = r
 const { indexKhachHang, getKhachHang, addKhachHang, updateKhachHang, deleteKhachHang } = require('../controllers/KhachHangController');
 const { indexDonVi, getDonVi, addDonVi, deleteDonVi, updateDonVi } = require('../controllers/DonviController');
 const { indexsanPham, addsanPham, getsanPham, deletesanPham, updatesanPham } = require('../controllers/SanPhamController');
-
+const { addNhaCungCap, getNhaCungCap, indexNhaCungCap, deleteNhaCungCap, updateNhaCungCap } = require('../controllers/NhaCungCapController');
 // Requests (Request Validations)
 // const { CreateAdminRequest, UpdateAdminRequest, DeleteAdminRequest } = require("../Request/Admin");
 const { validateCreateDanhMuc, validateUpdateDanhMuc, validateDeleteDanhMuc } = require('../Request/DanhMuc');
@@ -141,7 +141,12 @@ admin.post('/san-pham/create' ,upload,isAuthenticated, addsanPham);
 admin.delete('/san-pham/delete', isAuthenticated, deletesanPham); 
 admin.post('/san-pham/update',upload,isAuthenticated, updatesanPham); 
 
-
+//NhaCungCap Management Routes
+admin.get('/nha-cung-cap', isAuthenticated, indexNhaCungCap); 
+admin.get('/nha-cung-cap/get-data', isAuthenticated, getNhaCungCap); 
+admin.post('/nha-cung-cap/create' ,upload,isAuthenticated, addNhaCungCap); 
+admin.delete('/nha-cung-cap/delete', isAuthenticated, deleteNhaCungCap); 
+admin.post('/nha-cung-cap/update',upload,isAuthenticated, updateNhaCungCap); 
 // Combine admin routes under /admin
 router.use('/admin', admin);
 
