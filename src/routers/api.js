@@ -11,6 +11,7 @@ const { indexLogin, Login, Logout, viewRegister, handleRegister } = require('../
 const { indexDanhMuc, getDanhMuc, addDanhMuc, updateDanhMuc, deleteDanhMuc } = require('../controllers/DanhMucController');
 const { indexDonVi, getDonVi, addDonVi, deleteDonVi, updateDonVi } = require('../controllers/DonviController');
 const { indexsanPham, addsanPham, getsanPham, deletesanPham, updatesanPham } = require('../controllers/SanPhamController');
+const SellProductController = require('../controllers/SellProductController');
 
 // Requests (Request Validations)
 // const { CreateAdminRequest, UpdateAdminRequest, DeleteAdminRequest } = require("../Request/Admin");
@@ -133,6 +134,8 @@ admin.put('/nhan-vien/update', isAuthenticated, updateNhanVien);
 // Sell 
 admin.get('/sell-product',isAuthenticated,indexSellPage)
 admin.post('/add-to-invoice',isAuthenticated,addToinvoice)
+router.post('/add-to-invoice', SellProductController.addToinvoice);
+admin.post('/save-invoice', isAuthenticated, SellProductController.saveInvoice);
 
 
 // Combine admin routes under /admin
