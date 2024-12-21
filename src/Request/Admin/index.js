@@ -29,10 +29,7 @@ const CreateAdminRequest = [
         .withMessage('Số điện thoại phải là số!')
         .matches(/^\d{10}$/)
         .withMessage('Số điện thoại phải là 10 số!'),
-<<<<<<< HEAD
     
-=======
->>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

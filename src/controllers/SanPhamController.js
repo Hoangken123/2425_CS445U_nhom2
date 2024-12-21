@@ -1,8 +1,4 @@
 const SanPham = require("../model/SanPham");
-<<<<<<< HEAD
-
-=======
->>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
 const knex = require("../config/database");
 
 const indexsanPham = (req, res) => {

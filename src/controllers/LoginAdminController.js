@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 const nodemailer = require("nodemailer");
-=======
-const Users = require("../model/Users");
->>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const secretKey = process.env.SESSION_SECRET;
@@ -130,7 +126,6 @@ const indexLogin = (req, res) => {
 
 // Đăng nhập
 // Server-side Login controller
-<<<<<<< HEAD
 const Login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -142,45 +137,6 @@ const Login = async (req, res) => {
         message: "User not found!",
         redirectUrl: null,
       });
-=======
-const Login = async (req, res) => {     
-    try {
-        const { email, password } = req.body;
-        const user = await Users.query().findOne({ email });
-        
-        if (!user) {
-            return res.status(400).json({
-                status: false,
-                message: 'User not found!',
-                redirectUrl: null
-            });
-        }
-        
-        const isMatch = await bcrypt.compare(password, user.password);
-        
-        if (!isMatch) {
-            return res.status(401).json({
-                status: false,
-                message: 'Incorrect password!',
-                redirectUrl: null
-            });
-        }
-        
-        req.session.user = user;
-        
-        return res.json({
-            status: true,
-            message: 'Login successful',
-            redirectUrl: '/admin/danh-muc'
-        });
-    } catch (error) {
-        console.error('Login error:', error);
-        return res.status(500).json({
-            status: false,
-            message: 'Server error occurred during login!',
-            redirectUrl: null
-        });
->>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -231,7 +187,6 @@ const viewRegister = (req, res) => {
 };
 //Đăng Kí
 const handleRegister = async (req, res) => {
-<<<<<<< HEAD
   try {
     const { ten_dang_nhap, ten_hien_thi, so_dien_thoai, email, password } =
       req.body;
@@ -278,44 +233,6 @@ module.exports = {
   // view_forget_password,
   // forgetPassword,
   // resetPassword,
-=======
-    try {
-        const { ten_dang_nhap, ten_hien_thi, so_dien_thoai, email, password } = req.body;
-
-        if (!ten_dang_nhap || !ten_hien_thi || !so_dien_thoai || !email || !password) {
-            return res.status(400).json({
-                status: false,
-                message: 'Tất cả các trường là bắt buộc.',
-            });
-        }
-        const hashedPassword = await bcrypt.hash(password, 10); 
-        const User = await Users.query().insert({
-            ten_dang_nhap,
-            ten_hien_thi,
-            so_dien_thoai,
-            email,
-            password : hashedPassword,
-            id_cua_hang : null,
-            id_quyen:null,
-            level:1
-        });
-
-        return res.json({
-            status: true,
-            message: 'Đăng kí tài khoản thành công!',
-            data: User,
-        });
-    } catch (error) {
-        console.error('Lỗi khi Đăng kí tài khoản:', error);
-        return res.status(500).json({
-            status: false,
-            message: 'Lỗi hệ thống khi Đăng kí tài khoản.',
-        });
-    }
-};
-
-module.exports = {
->>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
   indexLogin,
   Login,
   Logout,

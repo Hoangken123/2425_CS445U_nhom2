@@ -26,7 +26,6 @@ const index = (req, res) => {
 };
 
 // Tạo tài khoản admin
-// Tạo tài khoản admin
 const createAdmin = async (req, res) => {
   try {
     const {
