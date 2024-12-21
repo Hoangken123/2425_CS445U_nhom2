@@ -1,0 +1,91 @@
+<div class="container mt-4">
+  <!-- Tiêu Đề -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="text-center fw-bold text-primary">Quản Lý Kho Thuốc</h3>
+    <button class="btn btn-outline-primary" onclick="openAddModal()">
+      <i class="bi bi-plus-circle me-1"></i> Thêm Thuốc
+    </button>
+  </div>
+
+  <!-- Bảng Dữ Liệu -->
+  <div class="table-responsive">
+    <table class="table table-hover align-middle text-center">
+      <thead class="table-primary">
+        <tr>
+          <th>#</th>
+          <th>Tên Sản Phẩm</th>
+          <th>Nhà Cung Cấp</th>
+          <th>Số Lượng</th>
+          <th>Đơn Giá Nhập</th>
+          <th>Thành Tiền</th>
+          <th>Ghi Chú</th>
+          <th>Hành Động</th>
+        </tr>
+      </thead>
+      <tbody id="table-body" class="table-group-divider">
+        <!-- Dữ liệu sẽ được load tại đây -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal Thêm / Chỉnh Sửa Thuốc -->
+<div class="modal fade" id="modalKhoThuoc" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content shadow-lg">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="modalTitle"><i class="bi bi-pencil-square me-2"></i>Thêm Thuốc</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formKhoThuoc" class="row g-3">
+          <!-- Input Ẩn -->
+          <input type="hidden" id="id">
+          
+          <!-- Tên Sản Phẩm -->
+          <div class="col-md-6">
+            <label for="id_san_pham" class="form-label fw-bold">Tên Sản Phẩm</label>
+            <input type="text" class="form-control" id="id_san_pham" placeholder="Nhập tên sản phẩm" required>
+          </div>
+
+          <!-- Nhà Cung Cấp -->
+          <div class="col-md-6">
+            <label for="id_nha_cung_cap" class="form-label fw-bold">Nhà Cung Cấp</label>
+            <input type="text" class="form-control" id="id_nha_cung_cap" placeholder="Nhập nhà cung cấp" required>
+          </div>
+
+          <!-- Số Lượng -->
+          <div class="col-md-4">
+            <label for="so_luong" class="form-label fw-bold">Số Lượng</label>
+            <input type="number" class="form-control" id="so_luong" placeholder="Nhập số lượng" required>
+          </div>
+
+          <!-- Đơn Giá Nhập -->
+          <div class="col-md-4">
+            <label for="don_gia_nhap" class="form-label fw-bold">Đơn Giá Nhập</label>
+            <input type="number" class="form-control" id="don_gia_nhap" placeholder="Nhập đơn giá nhập" required>
+          </div>
+
+          <!-- Ghi Chú -->
+          <div class="col-md-4">
+            <label for="ghi_chu" class="form-label fw-bold">Ghi Chú</label>
+            <input type="text" class="form-control" id="ghi_chu" placeholder="Ghi chú (nếu có)">
+          </div>
+
+          <!-- Nút Submit -->
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-success w-50">
+              <i class="bi bi-check-circle me-1"></i> Lưu
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap Icons CDN -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css"
+  rel="stylesheet"
+/>

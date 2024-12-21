@@ -56,7 +56,6 @@ const updateDanhMuc = async (req, res) => {
 };
 
 // Xóa danh mục
-// Controller xử lý xóa danh mục
 const deleteDanhMuc = async (req, res) => {
     try {
         const { id } = req.body; // Lấy ID từ request body

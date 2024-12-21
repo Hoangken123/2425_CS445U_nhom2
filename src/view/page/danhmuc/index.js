@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     const categoryTable = document.getElementById("category-table");
     const searchInput = document.getElementById("search-input");
-    const addButton = document.getElementById("add-button");
     const pagination = document.getElementById("pagination");
+    const addsavebutton = document.getElementById("add-save-button");
+    const updateSaveButton = document.getElementById("edit-save-button");
 
     let currentPage = 1;
     const limit = 10;
@@ -13,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const { data, pagination: pag } = response.data;
 
             categoryTable.innerHTML = data.map((category, index) => `
-                <tr>
+                <tr class="text-center">
                     <td>${index + 1 + (page - 1) * limit}</td>
                     <td>${category.ten}</td>
                     <td>${category.mo_ta || ''}</td>
@@ -39,35 +40,70 @@ document.addEventListener("DOMContentLoaded", () => {
             </button>
         `).join('');
     };
+    //add-DanhMuc 
+    addsavebutton.addEventListener("click", async () => {
+        const ten = document.getElementById("add-name").value.trim();
+        const mo_ta = document.getElementById("add-description").value.trim();
 
-    addButton.addEventListener("click", async () => {
-        const ten = prompt("Nhập tên danh mục:");
-        const mo_ta = prompt("Nhập mô tả danh mục:");
-        if (ten) {
-            try {
-                await axios.post('/admin/danh-muc/create', { ten, mo_ta });
-                fetchCategories(currentPage);
-                alert("Thêm danh mục thành công!");
-            } catch (error) {
-                console.error("Error adding category:", error);
+        if (!ten) {
+            toastr.error("Tên danh mục không được để trống!");
+            return;
+        }
+        try {
+            const response = await axios.post('/admin/danh-muc/create', { ten, mo_ta });
+
+            if (response.data.status) {
+                toastr.success(response.data.message);
+                fetchCategories(currentPage); 
+            } else {
+                toastr.error(response.data.message);
             }
+        } catch (error) {
+            console.error("lỗi thêm mới Danh Mục", error);
+            toastr.error("Có lỗi xảy ra khi thêm danh mục!");
         }
     });
 
+    //Edit
     window.editCategory = async (id, ten, mo_ta) => {
-        const newTen = prompt("Cập nhật tên danh mục:", ten);
-        const newMoTa = prompt("Cập nhật mô tả danh mục:", mo_ta);
-        if (newTen) {
-            try {
-                await axios.post('/admin/danh-muc/update', { id, ten: newTen, mo_ta: newMoTa });
-                fetchCategories(currentPage);
-                alert("Cập nhật danh mục thành công!");
-            } catch (error) {
-                console.error("Error updating category:", error);
-            }
-        }
+        document.getElementById("edit-id").value = id;
+        document.getElementById("edit-name").value = ten;
+        document.getElementById("edit-description").value = mo_ta;
+
+        const editModal = new bootstrap.Modal(document.getElementById("editModal"));
+        editModal.show();
     };
 
+    updateSaveButton.addEventListener("click", async () => {
+        const id = document.getElementById("edit-id").value;
+        const newTen = document.getElementById("edit-name").value.trim();
+        const newMoTa = document.getElementById("edit-description").value.trim();
+        if (!newTen) {
+            toastr.error("Tên danh mục không được để trống!");
+            return;
+        }
+        try {
+            const response = await axios.post('/admin/danh-muc/update', { id, ten: newTen, mo_ta: newMoTa });
+
+            if (response.data.status) {
+                const editModal = bootstrap.Modal.getInstance(document.getElementById("editModal"));
+                editModal.hide();
+
+                // Tải lại danh sách danh mục
+                fetchCategories(currentPage);
+
+                toastr.success(response.data.message);
+            } else {
+                toastr.error("Cập nhật thất bại: " + response.data.message);
+            }
+        } catch (error) {
+            console.error("Error updating category:", error);
+            toastr.error("Có lỗi xảy ra khi cập nhật danh mục!");
+        }
+
+    })
+
+    // DELETE//
     window.deleteCategory = async (id) => {
         if (confirm("Bạn có chắc chắn muốn xóa danh mục này?")) {
             try {

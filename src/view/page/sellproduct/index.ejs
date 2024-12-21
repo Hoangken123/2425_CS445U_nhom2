@@ -1,0 +1,275 @@
+<div class="container mt-4">
+    <style>
+      #product-list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        z-index: 1000;
+        max-height: 200px;
+        overflow-y: auto;
+        display: none;
+      }
+  
+      #product-list .list-group-item {
+        cursor: pointer;
+        padding: 10px;
+      }
+  
+      #product-list .list-group-item:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+  
+  <div class="row">
+      <div class="col-12">
+          <h3>Nhà Thuốc Khang Huy 2</h3>
+          <p>Người bán : lê trọng huy</p>
+          <div class="card">
+              <div class="card-header">
+                  <div class="row">
+                      <div class="col-12 col-md-10">
+                          <div class="row">
+                              <!-- Product Search -->
+                              <div class="col-12 col-md-5">
+                                  <div class="mt-3" style="position: relative;">
+                                      <input type="text" id="codeProduct" hidden>
+                                      <label for="label">Tên sản phẩm</label>
+                                      <input type="text" id="product-search" class="form-control form-control-sm" placeholder="Tim kiếm sản phẩm" />
+                                      <ul id="product-list" class="list-group"></ul>
+                                  </div>
+                              </div>
+                              
+                              <!-- Unit of Measure (DVT) -->
+                              <div class="col-12 col-md-2">
+                                  <div class="mt-3">
+                                      <label for="label">DVT</label>
+                                      <input type="text" id="id_don_vi" disabled class="form-control form-control-sm" placeholder="hộp" />
+  
+                                  </div>
+                              </div>
+                              
+                              <!-- Stock -->
+                              <div class="col-12 col-md-2">
+                                  <div class="mt-3">
+                                      <label for="label">Tồn</label>
+                                      <input type="text" id="ton" disabled class="form-control form-control-sm" placeholder="Tồn sản phẩm..." />
+                                  </div>
+                              </div>
+                              
+                              <!-- Unit Price -->
+                              <div class="col-12 col-md-3">
+                                  <div class="mt-3">
+                                      <label for="label">Đơn giá</label>
+                                      <input type="number" id="don_gia"  class="form-control form-control-sm" value="0" />
+                                  </div>
+                              </div>
+                          </div>
+                  
+                          <div class="row">
+                              <!-- Purchase Code -->
+                              <div class="col-12 col-md-5">
+                                  <div class="mt-3">
+                                      <label for="label">Mã nhập hàng</label>
+                                      <input type="text" id="ma_nhap_hang" disabled class="form-control form-control-sm" placeholder="#0912" />
+                                  </div>
+                              </div>
+                               
+                              <!-- Lot Number -->
+                              <div class="col-12 col-md-2">
+                                  <div class="mt-3">
+                                      <label for="label">Số lô</label>
+                                      <input type="number" disabled id="lo" class="form-control form-control-sm" placeholder="sl01" />
+                                  </div>
+                              </div>
+                              
+                              <!-- Quantity -->
+                              <div class="col-12 col-md-2">
+                                  <div class="mt-3">
+                                      <label for="label">Số lượng</label>
+                                      <input type="number" id="so_luong" class="form-control form-control-sm" value="0" />
+                                  </div>
+                              </div>
+                              
+                              <!-- Total Amount -->
+                              <div class="col-12 col-md-3">
+                                  <div class="mt-3">
+                                      <label for="label">Thành tiền</label>
+                                      <input type="number" disabled id="thanh_tien" class="form-control form-control-sm" value="0" />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  
+                      <!-- Add Button -->
+                      <div class="col-12 col-md-2">
+                          <button style="padding: 30px 0px; margin-top: 45px;" id="addToinvoice" class="btn btn-success w-100">
+                              Thêm
+                          </button>
+                      </div>
+                  </div>
+              </div>
+              <div class="card-body">
+                 <div class="row">
+                   <div class="col-8">
+                          <table class="table table-bordered">
+                              <thead>
+                                  <tr class="text-center">
+                                      <th>#</th>
+                                      <th>Tên sản phẩm</th>
+                                      <th>Giá bán</th>
+                                      <th>Số lượng</th>
+                                      <th>DVT</th>
+                                      <th>Thành tiền</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="list-table">
+                              
+                              </tbody>
+                          </table>
+                   </div>
+                   <div class="col-4">
+                      <div class="row">
+                          <div class="col-12">
+                              <div class="card">
+                                  <div class="card-body">
+                                      <div class="mt-2">
+                                          <label for="label">Cộng tiền hàng</label>
+                                          <input type="number" id="tong_tien_hang" class="form-control form-control-sm" value="0">
+                                      </div>
+                                      <div class="mt-2">
+                                          <label for="label">Tiền chiết khấu</label>
+                                          <input type="number" id="tien_chiec_khau" class="form-control form-control-sm" value="0">
+                                      </div>
+                                      <div class="mt-2">
+                                          <label for="label">Phí dịch vụ</label>
+                                          <input type="number" id="phi_dich_vu" class="form-control form-control-sm" value="0">
+                                      </div>
+                                      <div class="mt-2">
+                                          <label for="label">Tiền thanh toán</label>
+                                          <input type="number" id="tien_thanh_toan" class="form-control form-control-sm" value="0">
+                                      </div>
+                                      <div class="mt-2">
+                                          <label for="label">Tiền khách đưa</label>
+                                          <input type="number" id="tien_khach_dua" class="form-control form-control-sm" value="0">
+                                      </div>
+                                      <div class="mt-2">
+                                          <label for="label">Tiền trả khách</label>
+                                          <input type="number" id="tien_tra_khach" class="form-control form-control-sm" value="0">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-12">
+                              <div class="card">
+                                  <div class="card-header">
+                                      <h5>Thông tin khách hàng</h5>
+                                  </div>
+                                  <div class="card-body">
+                                      <div class="mt-2">
+                                          <label for="label">Tên:</label>
+                                          <input type="text" id="ten_khach_hang" class="form-control form-control-sm" placeholder="Tên khách hàng">
+                                      </div>
+                                      <div class="mt-2">
+                                          <label for="label">Số điện thoại</label>
+                                          <input type="text" id="so_dien_thoai" class="form-control form-control-sm" placeholder="Số điện thoại">
+                                      </div>
+                                      <div class="mt-2">
+                                          <label for="label">Địa chỉ</label>
+                                          <input type="tel" id="dia_chi" class="form-control form-control-sm" placeholder="Địa chỉ">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                   </div>
+                 </div>
+              </div>
+              <div class="card-footer text-end">
+                  <button class="btn btn-success" id="btn-credit-pay">Bán Nợ</button>
+                  <button class="btn btn-success" id="btn-pay-and-print-bill">Thanh Toán & in bill</button>
+                  <button class="btn btn-success" id="btn-pay">Thanh Toán</button>
+                  <button class="btn btn-success" id="btn-save-temp-bill">Lưu Tạm</button>
+                  <button class="btn btn-danger"  id="btn-delete-bill">Xoá</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>
+  </div>
+  
+  
+  <!-- Modal Thêm Mới -->
+  <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="addModalLabel">Thêm Mới Danh Mục</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="add-form">
+                  <div class="mb-3">
+                      <label for="add-name" class="form-label">Tên Danh Mục</label>
+                      <input type="text" id="add-name" class="form-control" placeholder="Nhập tên danh mục">
+                  </div>
+                  <div class="mb-3">
+                      <label for="add-description" class="form-label">Mô Tả</label>
+                      <textarea id="add-description" class="form-control" placeholder="Nhập mô tả danh mục"></textarea>
+                  </div>
+                  <button type="button" class="btn btn-primary w-100" id="add-save-button">Thêm Mới</button>
+              </form>
+          </div>
+      </div>
+  </div> 
+  </div>
+  
+  <!-- Modal Chỉnh Sửa -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="editModalLabel">Chỉnh Sửa Danh Mục</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="edit-form">
+                  <input type="hidden" id="edit-id">
+                  <div class="mb-3">
+                      <label for="edit-name" class="form-label">Tên Danh Mục</label>
+                      <input type="text" id="edit-name" class="form-control" placeholder="Nhập tên danh mục">
+                  </div>
+                  <div class="mb-3">
+                      <label for="edit-description" class="form-label">Mô Tả</label>
+                      <textarea id="edit-description" class="form-control" placeholder="Nhập mô tả danh mục"></textarea>
+                  </div>
+                  <button type="button" class="btn btn-primary w-100" id="edit-save-button">Cập Nhật</button>
+              </form>
+          </div>
+      </div>
+  </div>
+  </div>
+  <!-- Modal Xóa -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Xác Nhận Xóa</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <p>Bạn có chắc chắn muốn xóa danh mục này không? <br>
+              <strong class="text-danger">Lưu ý:</strong> Dữ liệu đã xóa sẽ không thể khôi phục lại!</p>
+              <!-- Hidden input to store the ID of the item to be deleted -->
+              <input type="hidden" id="delete-id">
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+              <button type="button" class="btn btn-danger" id="confirm-delete-button">Xóa</button>
+          </div>
+      </div>
+  </div>
+  </div>

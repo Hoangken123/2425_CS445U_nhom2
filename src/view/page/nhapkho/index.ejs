@@ -1,0 +1,57 @@
+<div class="container py-4">
+    <div class="row">
+      <!-- Form tạo đơn nhập kho -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Tạo Đơn Nhập Kho</h5>
+          </div>
+          <div class="card-body">
+            <form id="formNhapKho">
+              <div class="mb-3">
+                <label for="ma_nhap_kho" class="form-label">Mã Nhập Kho</label>
+                <input type="text" id="ma_nhap_kho" class="form-control" placeholder="Mã nhập kho tự động" disabled />
+              </div>
+              <div class="mb-3">
+                <label for="thue" class="form-label">Thuế (%)</label>
+                <input type="number" id="thue" class="form-control" placeholder="Nhập thuế" />
+              </div>
+              <div class="mb-3">
+                <label for="id_user" class="form-label">Người Nhập</label>
+                <input type="text" id="id_user" class="form-control" placeholder="Nhập tên người nhập" />
+              </div>
+              <div class="mb-3">
+                <label for="tong_tien" class="form-label">Tổng Tiền</label>
+                <input type="number" id="tong_tien" class="form-control" placeholder="Nhập tổng tiền" />
+              </div>
+              <button type="button" id="btnThemMoi" class="btn btn-primary w-100">Tạo Đơn Nhập</button>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Danh sách đơn nhập kho -->
+      <div class="col-md-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Danh Sách Đơn Nhập Kho</h5>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Mã Nhập Kho</th>
+                  <th>Người Nhập</th>
+                  <th>Tổng Tiền</th>
+                  <th>Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody id="listNhapKho"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

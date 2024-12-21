@@ -3,10 +3,10 @@ const { Model } = require('objection');
 
 Model.knex(knex);
 
-class Admin extends Model {
+class PasswordResetToken extends Model {
     static get tableName() {
-        return 'admins';
+        return 'forget_passwords';
     }
 }
 
-module.exports = Admin;
+module.exports = PasswordResetToken; 

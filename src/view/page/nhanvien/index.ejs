@@ -1,0 +1,70 @@
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">QUẢN LÝ NHÂN VIÊN</h2>
+            <div class="d-flex justify-content-between align-items-center my-4">
+                <input id="search-input" type="text" class="form-control w-75" placeholder="Tìm kiếm nhân viên...">
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Tên nhân viên</th>
+                        <th class="text-center">Số điện thoại</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Cửa hàng quản lý</th>
+                        <th class="text-center">Số ngày nghỉ</th>
+                        <th class="text-center">Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody id="employee-table">
+                    <!-- Nội dung nhân viên sẽ được điền từ JS -->
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-end">
+            <div id="pagination" class="d-flex justify-content-center mt-3"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Chỉnh Sửa -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Chỉnh sửa nhân viên</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-form">
+                    <input type="hidden" id="edit-id">
+                    <div class="mb-3">
+                        <label for="edit-name" class="form-label">Tên nhân viên</label>
+                        <input type="text" id="edit_name_employee" class="form-control" placeholder="Nhập tên nhân viên">
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-phone" class="form-label">SDT nhân viên</label>
+                        <input type="text" id="edit_phone_employee" class="form-control" placeholder="Nhập Phone nhân viên">
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-email" class="form-label">Email nhân viên</label>
+                        <input type="text" id="edit_email_employee" class="form-control" placeholder="Nhập Email nhân viên">
+                    </div>
+                    <div class="mb-3">
+                        <select class="form-control" name="edit_id_cua_hang" id="edit_id_cua_hang">
+                            <option value="0">Vui lòng chọn cửa hàng NVQL</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-day-off" class="form-label">Số ngày nghỉ</label>
+                        <input type="text" id="edit_day_off" disabled class="form-control" placeholder="Nhập Số ngày nghỉ">
+                    </div>
+                    <button type="button" class="btn btn-primary w-100" id="edit-save-button">Cập Nhật</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

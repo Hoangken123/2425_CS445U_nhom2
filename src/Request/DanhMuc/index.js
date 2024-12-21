@@ -1,12 +1,12 @@
 const { check, validationResult } = require("express-validator");
 
-// const checkDanhMucExists = (id) => {
-//     return DanhMuc.findOne({ where: { id: id } }).then(DanhMuc => {
-//       if (!DanhMuc) {
-//         return Promise.reject('DanhMuc không tồn tại');
-//       }
-//     });
-// };
+const checkDanhMucExists = (id) => {
+    return DanhMuc.findOne({ where: { id: id } }).then(DanhMuc => {
+      if (!DanhMuc) {
+        return Promise.reject('DanhMuc không tồn tại');
+      }
+    });
+};
 // Kiểm tra dữ liệu thêm danh mục
 const validateCreateDanhMuc = [
     check("ten")

@@ -1,33 +1,25 @@
-const { createApp, ref, onMounted } = Vue;
-createApp({
-    setup() {
-        const user = ref({});
-        const Login = () => {
-            axios
-                .post('/login', user.value)
-                .then((res) => {
-                    if (res.data.status == 1) {
-                        localStorage.setItem('token', res.data.token);
-                        localStorage.setItem('id_user', JSON.stringify(res.data.id_user));
-                        toastr.success(res.data.message, 'success');
-                        setInterval(() => {
-                            window.location.href = "/admin"
-                        }, 1500);
-                    }
-                })
-                .catch((res) => {
-                    $.each(res.response.data.errors, function(k, v) {
-                        toastr.error(v.msg, 'error');
-                    });
-                });
+document.addEventListener("DOMContentLoaded", () => {
+    const Btn_Login = document.getElementById("btn-login");
+    
+    Btn_Login.addEventListener('click', async (e) => {
+        e.preventDefault(); 
+        
+        const email = document.getElementById("Email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        
+        if (email === "" || password === "") {
+            toastr.error("Vui lòng nhập đầy đủ thông tin!");
+            return;
         }
-
-        onMounted(() => {
-            console.log(123);
-        });
-        return {
-            user,
-            Login
-        };
-    },
-}).mount('#app');
+        
+        try {
+            const response = await axios.post('/login', { email, password });
+            
+            if (response.data.redirectUrl) {
+                window.location.href = response.data.redirectUrl;
+            }
+        } catch (error) {
+            toastr.error(error.response?.data?.message || 'Đăng nhập thất bại!');
+        }
+    });
+});

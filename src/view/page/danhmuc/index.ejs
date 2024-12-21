@@ -1,33 +1,36 @@
 <div class="container mt-4">
-    <h2 class="text-center">Quản Lý Danh Mục Thuốc</h2>
-
-    <!-- Thanh tìm kiếm -->
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <input id="search-input" type="text" class="form-control w-75" placeholder="Tìm kiếm danh mục thuốc...">
-        <button id="add-button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#addModal">Thêm Mới</button>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">Quản Lý Danh Mục Thuốc</h2>
+            <div class="d-flex justify-content-between align-items-center my-4">
+                <input id="search-input" type="text" class="form-control w-75" placeholder="Tìm kiếm danh mục thuốc...">
+                <button id="add-button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#addModal">Thêm Mới</button>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Tên</th>
+                        <th class="text-center">Mô Tả</th>
+                        <th class="text-center text-center">Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody id="category-table">
+                    <!-- Nội dung danh mục sẽ được điền từ JS -->
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text0-end">
+            <div id="pagination" class="d-flex justify-content-center mt-3"></div>
+        </div>
     </div>
-
-    <!-- Bảng danh sách danh mục -->
-    <table class="table table-bordered table-hover">
-        <thead class="table-light">
-            <tr>
-                <th class="text-center">#</th>
-                <th>Tên</th>
-                <th>Mô Tả</th>
-                <th class="text-center">Hành Động</th>
-            </tr>
-        </thead>
-        <tbody id="category-table">
-            <!-- Nội dung danh mục sẽ được điền từ JS -->
-        </tbody>
-    </table>
-
-    <!-- Phân trang -->
-    <div id="pagination" class="d-flex justify-content-center mt-3"></div>
+    
 </div> 
 
 <!-- Modal Thêm Mới -->
-<!-- <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -49,7 +52,7 @@
             </div>
         </div>
     </div> 
-</div> -->
+</div>
 
 <!-- Modal Chỉnh Sửa -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">

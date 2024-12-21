@@ -15,6 +15,13 @@ const hostname = process.env.HOST_NAME || 'localhost';
 const port = process.env.PORT || 8080;
 const sessionSecret = process.env.SESSION_SECRET;
 
+// const mailOptions = {
+//     from: process.env.EMAIL_USER, // Địa chỉ gửi mail
+//     to: "hpvy.work@gmail.com", // Địa chỉ nhận mail (do người dùng nhập)
+//     subject: "Reset Password",
+//     text: `Click vào link sau để đặt lại mật khẩu của bạn: 123`,
+// };
+
 // Cấu hình các middleware
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));

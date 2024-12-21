@@ -1,0 +1,178 @@
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">Quản Lý sản phẩm</h2>
+            <div class="d-flex justify-content-between align-items-center my-4">
+                <input id="search-input" type="text" class="form-control w-75" placeholder="Tìm kiếm sản phẩm thuốc...">
+                <button id="add-button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#addModal">Thêm Mới</button>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Hình ảnh</th>
+                        <th class="text-center">Tên sản phẩm</th>
+                        <th class="text-center">Hạn dụng</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center">giá bán </th>
+                        <th class="text-center">DVT</th>
+                        <th class="text-center">Danh mục</th>
+                        <th class="text-center text-center">Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody id="product-table">
+                    <!--  -->
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text0-end">
+            <div id="pagination" class="d-flex justify-content-center mt-3"></div>
+        </div>
+    </div>
+    
+</div> 
+
+<!-- Modal Thêm Mới -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true"> 
+    <div class="modal-dialog" style="max-width: 720px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Thêm đơn sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                <form id="add-form" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="hinh_anh" class="form-label">Hình ảnh</label>
+                        <input type="file" id="hinh_anh" name="hinh_anh" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ten_san_pham" class="form-label">Tên sản phẩm</label>
+                        <input type="text" name="ten_san_pham" id="ten_san_pham" class="form-control" placeholder="Nhập tên sản phẩm">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="slug-product" class="form-label">Slug sản phẩm</label>
+                        <input type="text" name="slug_san_pham" id="slug_san_pham" disabled class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="hang_su_dung" class="form-label">Hạn dùng</label>
+                        <input type="date" name="han_su_dung" id="han_su_dung" class="form-control">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="so_luong" class="form-label">Số lượng</label>
+                        <input type="text" name="so_luong" id="so_luong" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="gia_ban" class="form-label">Giá bán</label>
+                        <input type="text" name="gia_ban" id="gia_ban" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-control" name="id_don_vi" id="id_don_vi">
+                            <option value="0">Vui lòng chọn đơn vị</option>
+                         </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-control" name="id_danh_muc" id="id_danh_muc">
+                            <option value="0">Vui lòng chọn Danh Mục</option>
+                         </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Thêm Mới</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Chỉnh Sửa -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 720px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Chỉnh sửa sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-form" enctype="multipart/form-data">
+                    <input type="hidden" id="edit-id" name="id">
+                    <div class="mb-3">
+                        <label for="add-image" class="form-label">Hình ảnh</label>
+                        <input type="file"  id="hinh_anh" name="hinh_anh" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="add-name" class="form-label">Tên sản phẩm</label>
+                        <input type="text" name="edit_ten_san_pham" id="edit_ten_san_pham" class="form-control" placeholder="Nhập tên sản phẩm">
+                    </div>
+                    <div class="mb-3">
+                        <label for="add-slug"  class="form-label">Slug sản phẩm</label>
+                        <input type="text" name="edit_slug_san_pham" id="edit_slug_san_pham" disabled class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="add-expiry" class="form-label">Hạn dụng</label>
+                        <input type="datetime" name="edit_han_su_dung" id="edit_han_su_dung" class="form-control" >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="add-quantity" class="form-label">Số lượng</label>
+                        <input type="text" name="edit_so_luong" id="edit_so_luong" class="form-control" >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="add-quantity" class="form-label">Giá bán</label>
+                        <input type="text" name="edit_gia_ban" id="edit_gia_ban" class="form-control" >
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-control" name="edit_id_don_vi" id="edit_id_don_vi">
+                            <option value="0">Vui lòng chọn đơn vị</option>
+                            <option value="1">ML</option>
+                            <option value="2">KG</option>
+                         </select>
+                    </div>
+
+                     <div class="mb-3">
+                        <select class="form-control" name="edit_id_danh_muc" id="edit_id_danh_muc">
+                            <option value="0">Vui lòng chọn Danh Mục</option>
+                            <option value="1">Thuốc nước</option>
+                            <option value="2">Thuốc Viên</option>
+                         </select>
+                     </div>
+                    <button type="submit" class="btn btn-primary w-100" id="edit-save-button">Cập Nhật</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Xóa -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xác Nhận Xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa sản phẩm này không? <br>
+                <strong class="text-danger">Lưu ý:</strong> Dữ liệu đã xóa sẽ không thể khôi phục lại!</p>
+                <!-- Hidden input to store the ID of the item to be deleted -->
+                <input type="hidden" id="delete-id">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete-button">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
