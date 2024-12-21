@@ -21,10 +21,17 @@ const getKhachHang = async (req, res) => {
             .limit(limit)
             .offset(offset);
 
+<<<<<<< HEAD
         const khachHangs = await khachHangQuery;  
         const totalCount = await KhachHang.query() 
             .where('ten_khach_hang', 'like', `%${search}%`)
             .resultSize(); 
+=======
+        const khachHangs = await khachHangQuery;  // Lấy dữ liệu trang
+        const totalCount = await KhachHang.query()  // Lấy tổng số khách hàng
+            .where('ten_khach_hang', 'like', `%${search}%`)
+            .resultSize();  // Đảm bảo resultSize() hợp lệ với ORM bạn đang dùng
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
 
         res.json({
             status: true,
@@ -37,8 +44,19 @@ const getKhachHang = async (req, res) => {
     }
 };
 
+<<<<<<< HEAD
 // Thêm khách hàng
 const addKhachHang = async (req, res) => {
+=======
+
+// Thêm khách hàng
+const addKhachHang = async (req, res) => {
+    // Kiểm tra quyền truy cập (chỉ cho phép admin thực hiện)
+    // if (!req.user || req.user.role !== 'admin') {
+    //     return res.status(403).json({ status: false, message: 'Bạn không có quyền thực hiện thao tác này' });
+    // }
+
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
     try {
         const { ten_khach_hang, dia_chi, so_dien_thoai, email } = req.body;
         if (!ten_khach_hang || !dia_chi || !so_dien_thoai || !email) {
@@ -53,8 +71,21 @@ const addKhachHang = async (req, res) => {
     }
 };
 
+<<<<<<< HEAD
 // Cập nhật khách hàng
 const updateKhachHang = async (req, res) => {
+=======
+
+
+
+// Cập nhật khách hàng
+const updateKhachHang = async (req, res) => {
+    // Kiểm tra quyền truy cập (chỉ cho phép admin thực hiện)
+    // if (!req.user || req.user.role !== 'admin') {
+    //     return res.status(403).json({ status: false, message: 'Bạn không có quyền thực hiện thao tác này' });
+    // }
+
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
     try {
         const { ten_khach_hang, dia_chi, so_dien_thoai, email } = req.body;
         const id = req.params.id; // Sử dụng ID từ URL
@@ -87,9 +118,24 @@ const updateKhachHang = async (req, res) => {
     }
 };
 
+<<<<<<< HEAD
 // Xóa khách hàng
 const deleteKhachHang = async (req, res) => {
     
+=======
+
+
+
+
+// Xóa khách hàng
+// Controller xử lý xóa khách hàng
+const deleteKhachHang = async (req, res) => {
+    // Kiểm tra quyền truy cập (chỉ cho phép admin thực hiện)
+    // if (!req.user || req.user.role !== 'admin') {
+    //     return res.status(403).json({ status: false, message: 'Bạn không có quyền thực hiện thao tác này' });
+    // }
+
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
     try {
         const id = req.params.id; // Lấy ID từ request body
         await KhachHang.query().where("id_khach_hang", id).delete(); 

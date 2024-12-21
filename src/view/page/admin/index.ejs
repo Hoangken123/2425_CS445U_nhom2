@@ -6,6 +6,7 @@
             </div>
             <div class="card-body">
                 <div class="mb-3">
+<<<<<<< HEAD
                     <label class="form-label mb-2">Tên Đăng Nhập</label>
                     <input type="text" id="ten_dang_nhap" name="ten_dang_nhap" class="form-control">
                 </div>
@@ -37,6 +38,26 @@
                     <select class="form-control" id="id_cua_hang" name="id_cua_hang">
                         <!-- Các cửa hàng sẽ được hiển thị ở đây -->
                     </select>
+=======
+                    <label class="form-lable mb-2">Tên Đăng Nhập</label>
+                    <input type="text" id="ten_dang_nhap" name="ten_dang_nhap" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-lable mb-2">Tên Hiển Thị</label>
+                    <input type="text" id="ten_hien_thi" name="ten_hien_thi" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-lable mb-2">Email</label>
+                    <input type="text" id="email" name="email" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-lable mb-2">Số Điện Thoại</label>
+                    <input type="text" id="so_dien_thoai" name="so_dien_thoai" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-lable mb-2">Mật Khẩu</label>
+                    <input type="password" id="password" name="password" class="form-control">
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
                 </div>
             </div>
             <div class="card-footer">
@@ -53,22 +74,71 @@
                         <thead>
                             <tr>
                                 <th class="text-center text-nowrap align-middle">#</th>
+<<<<<<< HEAD
                                 <th class="text-center text-nowrap align-middle">Tên Đăng Nhập</th>
                                 <th class="text-center text-nowrap align-middle">Tên Hiển Thị</th>
                                 <th class="text-center text-nowrap align-middle">Email</th>
                                 <th class="text-center text-nowrap align-middle">Số Điện Thoại</th>
                                 <th class="text-center text-nowrap align-middle">Cửa Hàng</th>
+=======
+                                <th class="text-center text-nowrap align-middle">Tên Đăng Nhâp</th>
+                                <th class="text-center text-nowrap align-middle">Tên Hiển Thị</th>
+                                <th class="text-center text-nowrap align-middle">Email</th>
+                                <th class="text-center text-nowrap align-middle">Số Điện Thoại</th>
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
                                 <th class="text-center text-nowrap align-middle">Quyền</th>
                                 <th class="text-center text-nowrap align-middle">Đổi mật khẩu</th>
                                 <th class="text-center text-nowrap align-middle">Hoạt Động</th>
                             </tr>
                         </thead>
                         <tbody id="loadTK">
+<<<<<<< HEAD
                             <!-- Dữ liệu tài khoản sẽ được load tại đây -->
                         </tbody>
                     </table>
                     <!-- Modal Đổi mật khẩu -->
                     <div class="modal fade" id="ModaldmkTK" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+=======
+                               
+                        </tbody>
+                    </table>
+                     <!-- Đổi mật Khẩu -->
+                     <div class="modal fade" id="ModaldmkTK" tabindex="-1" aria-labelledby="exampleModalLabel"
+                          aria-hidden="true">
+                          <div class="modal-dialog">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Đổi mật khẩu</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                          aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <input type="text" id="dmk_id">
+                                    <div class="mb-3">
+                                        <label class="form-lable mb-2">Email</label>
+                                        <input type="text" id="dmk_email" disabled class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-lable mb-2">Mật Khẩu</label>
+                                        <input type="text" id="dmk_password" class="form-control">
+                                    </div>
+                                      <div class="mb-3">
+                                          <label class="form-lable mb-2">Nhập lại mật khẩu</label>
+                                          <input type="text" id="dmk_re_password" class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary"
+                                          data-bs-dismiss="modal">Đóng</button>
+                                      <button type="button" class="btn btn-success" id="btn-changePW">Đổi mật khẩu</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    <!-- Cập nhật -->
+                    <div class="modal fade" id="capNhatModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -76,6 +146,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
+<<<<<<< HEAD
                                     <input type="hidden" id="dmk_id">
                                     <div class="mb-3">
                                         <label class="form-label mb-2">Email</label>
@@ -93,6 +164,42 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                                     <button type="button" class="btn btn-success" id="btn-changePW">Đổi mật khẩu</button>
+=======
+                                    <input type="hidden" id="edit-id">
+                                    <div class="mb-3">
+                                        <label class="form-lable mb-2">Tên Đăng Nhập</label>
+                                        <input type="text" id="edit_ten_dang_nhap" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-lable mb-2">Tên Hiển Thị</label>
+                                        <input type="text" id="edit_ten_hien_thi" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-lable mb-2">Email</label>
+                                        <input type="text" id="edit_email" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-lable mb-2">Số điện thoại</label>
+                                        <input type="text" id="edit_so_dien_thoai" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-lable mb-2">level</label>
+                                        <input type="text" id="edit_level" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-lable mb-2">cấp cửa hàng</label>
+                                        <input type="text" id="edit_id_cua_hang" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-lable mb-2">Cấp Quyền</label>
+                                        <input type="text" id="edit_id_quyen" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Đóng</button>
+                                    <button type="button" class="btn btn-primary" id="btn-updateTK">Cập nhật</button>
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
                                 </div>
                             </div>
                         </div>
@@ -142,6 +249,7 @@
                     <!-- Modal Xóa -->
                     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
+<<<<<<< HEAD
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa Tài khoản</h1>
@@ -156,6 +264,22 @@
                                     <button type="button" class="btn btn-danger" id="btn-xoaTK">Xác Nhận</button>
                                 </div>
                             </div>
+=======
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa Tài khoản</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <input type="hidden" id="delete-id">
+                            <div class="modal-body">
+                              Bạn có chắc chắn muốn xóa hay không.<br><span><b class="text-danger">Lưu ý:</b> Dữu liệu sau khi xóa không thể khôi phục lại!!</span>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                              <button type="button" class="btn btn-danger" id="btn-xoaTK">Xác Nhận</button>
+                            </div>
+                          </div>
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
                         </div>
                     </div>
                 </div>

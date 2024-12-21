@@ -4,6 +4,7 @@ const admin = express.Router();
 const multer = require("multer");
 const fs = require('fs');
 const path = require("path");
+<<<<<<< HEAD
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const secretKey = process.env.SESSION_SECRET;
@@ -23,6 +24,17 @@ const  SellProductController = require('../controllers/SellProductController');
 const { indexKhoThuoc,getKhoThuoc, addKhoThuoc, updateKhoThuoc, deleteKhoThuoc } = require('../controllers/KhoThuocController');
 const { indexChiTietHoaDonBan, getChiTietHoaDonBan } = require('../controllers/ChiTietHoaDonBanController');
 
+=======
+
+// Controllers
+const { index, data, createAdmin, updateAdmin, deleteAdmin, changePassword } = require("../controllers/AdminController");
+const { indexLogin, Login, Logout, viewRegister, handleRegister } = require('../controllers/LoginAdminController');
+const { indexDanhMuc, getDanhMuc, addDanhMuc, updateDanhMuc, deleteDanhMuc } = require('../controllers/DanhMucController');
+const { indexKhachHang, getKhachHang, addKhachHang, updateKhachHang, deleteKhachHang } = require('../controllers/KhachHangController');
+const { indexDonVi, getDonVi, addDonVi, deleteDonVi, updateDonVi } = require('../controllers/DonviController');
+const { indexsanPham, addsanPham, getsanPham, deletesanPham, updatesanPham } = require('../controllers/SanPhamController');
+const { addNhaCungCap, getNhaCungCap, indexNhaCungCap, deleteNhaCungCap, updateNhaCungCap } = require('../controllers/NhaCungCapController');
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
 // Requests (Request Validations)
 // const { CreateAdminRequest, UpdateAdminRequest, DeleteAdminRequest } = require("../Request/Admin");
 const { validateCreateDanhMuc, validateUpdateDanhMuc, validateDeleteDanhMuc } = require('../Request/DanhMuc');
@@ -45,6 +57,7 @@ const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const uploadPath = path.resolve(__dirname, '..', 'public', 'uploads', 'products');
         if (!fs.existsSync(uploadPath)) {
+<<<<<<< HEAD
             fs.mkdirSync(uploadPath, { recursive: true });
         }
         cb(null, uploadPath);
@@ -57,6 +70,19 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage,
     limits: { fileSize: 10 * 1024 * 1024 },
+=======
+            fs.mkdirSync(uploadPath, { recursive: true }); 
+        }
+        cb(null, uploadPath); 
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + "-" + file.originalname.replace(/\s/g, '_'));
+    },
+});
+const upload = multer({ 
+    storage, 
+    limits: { fileSize: 10 * 1024 * 1024 }, 
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
     fileFilter: (req, file, cb) => {
         const fileTypes = /jpeg|jpg|png|gif/;
         const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
@@ -70,15 +96,33 @@ const upload = multer({
 }).single('hinh_anh');
 
 
+<<<<<<< HEAD
 
 const isAuthenticated = (req, res, next) => {
     if (req.session && req.session.user) {
         next();
     } else {
         res.redirect('/login');
+=======
+const isAuthenticated = (req, res, next) => {
+    const user = req.session?.user;
+    console.log("user session:", user);
+    
+    if (!user || user.level !== 1) {
+        return res.redirect('/login'); 
+    }
+    req.session.touch();
+    next();
+};
+const preventLoggedInUserAccess = (req, res, next) => {
+    if (req.session?.user) {
+        req.session.touch();
+        return res.redirect('/login');
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
     }
 };
 
+<<<<<<< HEAD
 const preventLoggedInUserAccess = (req, res, next) => {
     if (req.session && req.session.user) {
         res.redirect('/admin');
@@ -91,6 +135,28 @@ const preventLoggedInUserAccess = (req, res, next) => {
 
 // View Routes
 admin.get('/', isAuthenticated, index);
+=======
+const jwt = require('jsonwebtoken');
+
+// const authenticate = (req, res, next) => {
+//     const token = req.headers['authorization'];
+
+//     if (!token) {
+//         return res.status(401).json({ status: false, message: 'Token không hợp lệ' });
+//     }
+
+//     jwt.verify(token, 'secret_key', (err, user) => {
+//         if (err) {
+//             return res.status(403).json({ status: false, message: 'Token không hợp lệ' });
+//         }
+//         req.user = user;  // Lưu thông tin người dùng vào req.user
+//         next();
+//     });
+// };
+
+// module.exports = authenticate;
+
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
 // Authentication Routes
 router.get('/view-register',viewRegister)
 router.post('/handle-register',handleRegister)
@@ -120,6 +186,17 @@ admin.post('/danh-muc/create', isAuthenticated, validateCreateDanhMuc, addDanhMu
 admin.post('/danh-muc/update', isAuthenticated, validateUpdateDanhMuc, updateDanhMuc); // Cập nhật danh mục
 admin.post('/danh-muc/delete', isAuthenticated, validateDeleteDanhMuc, deleteDanhMuc); // Xóa danh mục
 
+<<<<<<< HEAD
+=======
+// Khach Hang Management Routes
+admin.get('/khach-hang', isAuthenticated, indexKhachHang); // Trang quản lý khách hàng
+admin.get('/khach-hang/get-data', isAuthenticated, getKhachHang); // Lấy danh sách khách hàng (phân trang & tìm kiếm)
+admin.post('/khach-hang/create', isAuthenticated, validateCreateKhachHang, addKhachHang); // Thêm khách hàng
+admin.put('/khach-hang/update/:id', isAuthenticated, validateUpdatekhachHang, updateKhachHang); // Cập nhật khách hàng
+admin.delete('/khach-hang/delete/:id', isAuthenticated, validateDeleteKhachHang, deleteKhachHang); // Xóa khách hàng
+
+
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
 //Unit Management Routes
 admin.get('/don-vi', isAuthenticated, indexDonVi); 
 admin.get('/don-vi/get-data', isAuthenticated, getDonVi); 
@@ -134,6 +211,7 @@ admin.post('/san-pham/create' ,upload,isAuthenticated, addsanPham);
 admin.delete('/san-pham/delete', isAuthenticated, deletesanPham); 
 admin.post('/san-pham/update',upload,isAuthenticated, updatesanPham); 
 
+<<<<<<< HEAD
 // Khach Hang Management Routes
 admin.get('/khach-hang', isAuthenticated, indexKhachHang); // Trang quản lý khách hàng
 admin.get('/khach-hang/get-data', isAuthenticated, getKhachHang); // Lấy danh sách khách hàng (phân trang & tìm kiếm)
@@ -187,6 +265,15 @@ admin.get('/nhap-thuoc/get-data',isAuthenticated, getDonNhap);
 admin.post('/nhap-thuoc/create',isAuthenticated, createDonNhap);
 admin.post('/nhap-thuoc/delete',isAuthenticated, deleteDonNhap);
 
+=======
+//NhaCungCap Management Routes
+admin.get('/nha-cung-cap', isAuthenticated, indexNhaCungCap); 
+admin.get('/nha-cung-cap/get-data', isAuthenticated, getNhaCungCap); 
+admin.post('/nha-cung-cap/create' ,upload,isAuthenticated, addNhaCungCap); 
+admin.delete('/nha-cung-cap/delete', isAuthenticated, deleteNhaCungCap); 
+admin.post('/nha-cung-cap/update',upload,isAuthenticated, updateNhaCungCap); 
+// Combine admin routes under /admin
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
 router.use('/admin', admin);
 
 module.exports = router;

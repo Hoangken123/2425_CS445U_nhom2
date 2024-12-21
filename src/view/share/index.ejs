@@ -20,7 +20,8 @@
             ></a>
             <%- include("../share/footer.ejs") -%>
         </div>
-        <%- include("../share/js.ejs") -%> <% if (customScript) { %>
+        <%- include("../share/js.ejs") -%> 
+        <% if (customScript) { %>
         <script type="module" src="<%= customScript %>"></script>
         <% } %>
     </body>

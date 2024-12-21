@@ -1,6 +1,7 @@
 const { Model } = require('objection');
 const knex = require('../config/database');
 
+<<<<<<< HEAD
 class NhaCungCap extends Model {
   static get tableName() {
     return 'nha_cung_caps';
@@ -36,6 +37,14 @@ class NhaCungCap extends Model {
       throw new Error('Số điện thoại không hợp lệ');
     }
   }
+=======
+Model.knex(knex);
+
+class NhaCungCap extends Model {
+    static get tableName() {
+        return 'nha_cung_caps'; 
+    }
+>>>>>>> a564eb7929eacaf047d568ad8c16a33642ac4690
 }
 
 module.exports = NhaCungCap;
